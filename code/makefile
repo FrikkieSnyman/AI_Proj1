@@ -1,3 +1,7 @@
+# Created by
+# 	FRIKKIE SNYMAN 	-	13028741
+# 	ANDRE CALITZ 	-	13020006
+
 main: board.o main.o
 	g++ board.o main.o -o main
 
