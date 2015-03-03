@@ -1,8 +1,7 @@
-#include "headers/test.h"
+#include "headers/board.h"
 
 using namespace std;
 int main(){
-	Test test;
-	test.foo();
-	// cout << "Hello world" << endl;
+	Board board(8);
+
 }
