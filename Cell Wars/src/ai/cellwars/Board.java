@@ -133,7 +133,11 @@ public class Board {
             }
         }
          
+        determineFullInfluence(bt, occ);
+        
+    }
 
+    private void determineFullInfluence(BlockType bt, BlockType occ) {
         
     }
 }
