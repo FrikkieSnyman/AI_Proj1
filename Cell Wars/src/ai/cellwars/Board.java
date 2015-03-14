@@ -155,14 +155,10 @@ public class Board {
                         }
                     }
                 }
-
             }
         }
         
         determineFullInfluence(bt, occ, cellList);
-         
-        
-        
     }
 
     private void determineFullInfluence(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
@@ -177,16 +173,133 @@ public class Board {
                 Integer y = cell.infList.get(i).getY();
                 
                 if ((x-1) >= 0){
-                    if (blockType[x-1][y] == bt){
-                        for (int k = 0; k < influenced.size(); ++k){
-                            if (influenced.get(k).isCoord(x-1, y)){
-                                local.add(influenced.get(k).getOwner());
-                                temp.remove(influenced.get(k).getOwner());
+                    if ((x-2) >= 0){
+                        if (blockType[x-2][y] == bt){
+                            for (int k = 0; k < influenced.size(); ++k){
+                                if (influenced.get(k).isCoord(x-2, y)){
+                                    local.add(influenced.get(k).getOwner());
+                                    temp.remove(influenced.get(k).getOwner());
+                                }
+                            }
+                        }
+                        if ((y-1) >= 0){
+                            if (blockType[x-2][y-1] == bt){
+                                for (int k = 0; k < influenced.size(); ++k){
+                                    if (influenced.get(k).isCoord(x-2, y-1)){
+                                        local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
+                                    }
+                                }
+                            }
+                        }
+                        if ((y+1) < boardSize){
+                            if (blockType[x-2][y+1] == bt){
+                                for (int k = 0; k < influenced.size(); ++k){
+                                    if (influenced.get(k).isCoord(x-2, y+1)){
+                                        local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
+                                    }
+                                }
+                            }
+                        }                     
+                    }
+                }
+                if ((x+1) < boardSize){
+                    if ((x+2) < boardSize){
+                        if (blockType[x+2][y] == bt){
+                            for (int k = 0; k < influenced.size(); ++k){
+                                if (influenced.get(k).isCoord(x+2, y)){
+                                    local.add(influenced.get(k).getOwner());
+                                    temp.remove(influenced.get(k).getOwner());
+                                }
+                            }
+                        }
+                        if ((y+1) < boardSize){
+                            if (blockType[x+2][y+1] == bt){
+                                for (int k = 0; k < influenced.size(); ++k){
+                                    if (influenced.get(k).isCoord(x+2, y+1)){
+                                        local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
+                                    }
+                                }
+                            }    
+                        }
+                        if ((y-1) >= 0){
+                            if (blockType[x+2][y-1] == bt){
+                                for (int k = 0; k < influenced.size(); ++k){
+                                    if (influenced.get(k).isCoord(x+2, y-1)){
+                                        local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                
+                if ((y+1) < boardSize){
+                    if ((y+2) < boardSize){
+                        if (blockType[x][y+2] == bt){
+                            for (int k = 0; k < influenced.size(); ++k){
+                                if (influenced.get(k).isCoord(x, y+2)){
+                                    local.add(influenced.get(k).getOwner());
+                                    temp.remove(influenced.get(k).getOwner());
+                                }
+                            }
+                        }
+                        if ((x+1) < boardSize){
+                            if (blockType[x+1][y+2] == bt){
+                                for (int k = 0; k < influenced.size(); ++k){
+                                    if (influenced.get(k).isCoord(x+1, y+2)){
+                                        local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
+                                    }
+                                }
+                            }
+                        }
+                        if ((x-1) >= 0){
+                            if (blockType[x-1][y+2] == bt){
+                                for (int k = 0; k < influenced.size(); ++k){
+                                    if (influenced.get(k).isCoord(x-1, y+2)){
+                                        local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if ((y-1) >= 0){
+                    if ((y-2) >= 0){
+                        if (blockType[x][y-2] == bt){
+                            for (int k = 0; k < influenced.size(); ++k){
+                                if (influenced.get(k).isCoord(x, y-2)){
+                                    local.add(influenced.get(k).getOwner());
+                                    temp.remove(influenced.get(k).getOwner());
+                                }
+                            }
+                        }
+                        if ((x+1) < boardSize){
+                            if (blockType[x+1][y-2] == bt){
+                                for (int k = 0; k < influenced.size(); ++k){
+                                    if (influenced.get(k).isCoord(x+1, y-2)){
+                                        local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
+                                    }
+                                }
+                            }
+                        }
+                        if ((x-1) >= 0){
+                            if (blockType[x-1][y-2] == bt){
+                                for (int k = 0; k < influenced.size(); ++k){
+                                    if (influenced.get(k).isCoord(x-1, y-2)){
+                                        local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
