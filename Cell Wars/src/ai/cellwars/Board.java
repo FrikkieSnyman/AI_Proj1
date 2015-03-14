@@ -125,7 +125,7 @@ public class Board {
             }
         }
          
-
+        determineFullInfluence(bt, occ);
         
     }
 }
