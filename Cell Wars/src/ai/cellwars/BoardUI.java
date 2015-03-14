@@ -12,8 +12,8 @@ import javax.swing.table.DefaultTableModel;
  * @author frikkie
  */
 public class BoardUI extends javax.swing.JFrame {
-
     Integer n;
+    Board gameBoard;
     
     /**
      * Creates new form BoardUI
@@ -42,6 +42,10 @@ public class BoardUI extends javax.swing.JFrame {
     
     public javax.swing.JTable getTable(){
         return this.tblBoard;
+    }
+    
+    public void setBoard(Board gameBoard) {
+        this.gameBoard = gameBoard;
     }
     
     public void setTable(javax.swing.JTable table){
@@ -76,13 +80,21 @@ public class BoardUI extends javax.swing.JFrame {
         tblBoard.setCellSelectionEnabled(true);
         tblBoard.setFocusable(false);
         tblBoard.setTableHeader(null);
+        tblBoard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBoardMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblBoard);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,6 +103,16 @@ public class BoardUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblBoardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBoardMouseClicked
+        // TODO add your handling code here:
+        Integer x = tblBoard.getSelectedColumn();
+        Integer y = tblBoard.getSelectedRow();
+        
+        if (!(gameBoard.getBlockType(x, y) != null && (gameBoard.getBlockType(x, y).equals(BlockType.BLUE_OCCUPIED) || gameBoard.getBlockType(x, y).equals(BlockType.RED_OCCUPIED)))) {
+            tblBoard.clearSelection();
+        }
+    }//GEN-LAST:event_tblBoardMouseClicked
 
     /**
      * @param args the command line arguments

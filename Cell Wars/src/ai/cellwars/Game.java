@@ -36,6 +36,7 @@ public class Game {
         allCells.addAll(redPlayer.getCellList());
         board = new Board(boardSize, allCells);
         table = board.getTable();
+        board.setTable(board);
         drawCells();
     }
     
