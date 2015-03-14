@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package ai.cellwars;
+
+import java.util.LinkedList;
+
 /**
  *
  * @author frikkie
@@ -11,7 +14,9 @@ package ai.cellwars;
 public class Cell {
     Integer positionX;
     Integer positionY;
+    Integer moveCount = 1;
     String color;
+    LinkedList<Position> infList = null;
     
     public Cell(){
         
@@ -21,6 +26,7 @@ public class Cell {
         this.positionX = positionX;
         this.positionY = positionY;
         this.color = color;
+        this.infList = new LinkedList<>();
     }
     
     public void setPositionX (Integer positionX){
@@ -42,5 +48,13 @@ public class Cell {
     
     public String getColor(){
         return color;
+    }
+    
+    public Integer getMoveCount(){
+        return moveCount;
+    }
+    
+    public void setMoveCout(Integer moveCount){
+        this.moveCount = moveCount;
     }
 }
