@@ -31,7 +31,7 @@ public class Game {
         this.players = players;
         board = new Board(boardSize);
         table = board.getTable();
-//        bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize);
+//        bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize); **THIS CAUSES SOME WEIRD LOOP
 //        allCells.addAll(bluePlayer.getCellList());
 //        redPlayer = new Player(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize);
 //        allCells.addAll(redPlayer.getCellList());
