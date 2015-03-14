@@ -13,6 +13,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BoardUI extends javax.swing.JFrame {
     Integer n;
+    Boolean selected;
+    Integer selectedX;
+    Integer selectedY;
     Board gameBoard;
     
     /**
@@ -21,6 +24,9 @@ public class BoardUI extends javax.swing.JFrame {
     public BoardUI() {
         initComponents();
         n = 8;
+        selected = false;
+        selectedX = -1;
+        selectedY = -1;
     }
     
     /**
@@ -29,6 +35,9 @@ public class BoardUI extends javax.swing.JFrame {
     public BoardUI(Integer n) {
         initComponents();
         this.n = n;
+        selected = false;
+        selectedX = -1;
+        selectedY = -1;
         
         DefaultTableModel dtm = (DefaultTableModel) tblBoard.getModel();
         dtm.setRowCount(n);
@@ -109,8 +118,22 @@ public class BoardUI extends javax.swing.JFrame {
         Integer x = tblBoard.getSelectedColumn();
         Integer y = tblBoard.getSelectedRow();
         
-        if (!(gameBoard.getBlockType(x, y) != null && (gameBoard.getBlockType(x, y).equals(BlockType.BLUE_OCCUPIED) || gameBoard.getBlockType(x, y).equals(BlockType.RED_OCCUPIED)))) {
-            tblBoard.clearSelection();
+        if (!selected) {
+            if (!(gameBoard.getBlockType(x, y) != null && (gameBoard.getBlockType(x, y).equals(BlockType.BLUE_OCCUPIED) || gameBoard.getBlockType(x, y).equals(BlockType.RED_OCCUPIED)))) {
+                selected = false;
+                selectedX = -1;
+                selectedY = -1;
+                tblBoard.clearSelection();
+            }
+            else {
+                selected = true;
+                selectedX = x;
+                selectedY = y;
+
+            }
+        }
+        else {
+            
         }
     }//GEN-LAST:event_tblBoardMouseClicked
 
