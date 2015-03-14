@@ -41,7 +41,29 @@ public class Game {
     public void drawCells(){
         for (int i = 0; i < allCells.size(); ++i){
             Cell tmp = allCells.get(i);
-            table.setValueAt(tmp.getColor(), tmp.positionY, tmp.positionX);
+            table.setValueAt(tmp.getColor().toUpperCase(), tmp.positionY, tmp.positionX);
+            if (tmp.getColor().compareTo("blue") == 0){
+                board.setBlockType(BlockType.BLUE_OCCUPIED,tmp.positionX,tmp.positionY);
+            } else{
+                board.setBlockType(BlockType.RED_OCCUPIED,tmp.positionX,tmp.positionY);
+            }
+        }
+        
+        board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED);
+        board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED);
+        
+        BlockType[][] bt = board.getBoard();
+        
+        for (int i = 0; i < boardSize; ++i){
+            for (int j = 0; j < boardSize; ++j){
+                if (bt[i][j] != BlockType.EMPTY){
+                    if(bt[i][j] == BlockType.BLUE_INFLUENCED){
+                        table.setValueAt("b",j,i);
+                    } else if (bt[i][j] == BlockType.RED_INFLUENCED){
+                        table.setValueAt("r",j,i);
+                    }
+                }
+            }
         }
     }
     

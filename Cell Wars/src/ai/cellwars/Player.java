@@ -54,7 +54,18 @@ public class Player {
         for (int i = 0; i < cells; ++i){
             randX = randomInteger(fromX, toX);
             randY = randomInteger(fromY, toY);
-            cellList.add(new Cell(randX, randY, color));
+            Cell cell = new Cell(randX, randY, color);
+            Boolean found = false;
+            for (int j = 0; j < cellList.size(); ++j){
+                if (cellList.get(j).positionX == randX && cellList.get(j).positionY == randY){
+                    found = true;
+                }
+            }
+            if (!found){
+                cellList.add(cell);
+            } else{
+                --i;
+            }
         }
     }
     /**
