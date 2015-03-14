@@ -29,12 +29,13 @@ public class Game {
         this.boardSize = boardSize;
         this.cellsPerPlayer = cellsPerPlayer;
         this.players = players;
-        board = new Board(boardSize);
-        table = board.getTable();
+        
         bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize); 
         allCells.addAll(bluePlayer.getCellList());
         redPlayer = new Player(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize);
         allCells.addAll(redPlayer.getCellList());
+        board = new Board(boardSize, allCells);
+        table = board.getTable();
         drawCells();
     }
     
@@ -50,6 +51,7 @@ public class Game {
         }
         
         board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED);
+        
         board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED);
         
         BlockType[][] bt = board.getBoard();

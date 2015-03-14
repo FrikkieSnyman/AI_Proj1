@@ -73,7 +73,7 @@ public class BoardUI extends javax.swing.JFrame {
             }
         ));
         tblBoard.setAutoscrolls(false);
-        tblBoard.setEnabled(false);
+        tblBoard.setCellSelectionEnabled(true);
         tblBoard.setFocusable(false);
         tblBoard.setTableHeader(null);
         jScrollPane1.setViewportView(tblBoard);
