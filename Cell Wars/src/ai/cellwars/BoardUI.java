@@ -43,6 +43,10 @@ public class BoardUI extends javax.swing.JFrame {
     public javax.swing.JTable getTable(){
         return this.tblBoard;
     }
+    
+    public void setTable(javax.swing.JTable table){
+        tblBoard = table;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

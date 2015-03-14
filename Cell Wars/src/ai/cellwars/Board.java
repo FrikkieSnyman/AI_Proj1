@@ -17,4 +17,12 @@ public class Board {
         boardUI = new BoardUI(boardSize);
         boardUI.setVisible(true);
     }
+    
+    public javax.swing.JTable getTable(){
+        return boardUI.getTable();
+    }
+    
+    public void setTable(javax.swing.JTable table){
+        boardUI.setTable(table);
+    }
 }

@@ -9,6 +9,6 @@ package ai.cellwars;
  *
  * @author frikkie
  */
-public enum CellType {
+public enum BlockType {
     EMPTY, OCCUPIED, INFLUENCED
 }
