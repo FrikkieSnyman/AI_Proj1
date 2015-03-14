@@ -9,12 +9,6 @@ package ai.cellwars;
  *
  * @author frikkie
  */
-public class Board {
-    Integer boardSize;
-    BoardUI boardUI = null;
-    public Board(Integer boardSize){
-        this.boardSize = boardSize;
-        boardUI = new BoardUI(boardSize);
-        boardUI.setVisible(true);
-    }
+public enum CellType {
+    EMPTY, OCCUPIED, INFLUENCED
 }

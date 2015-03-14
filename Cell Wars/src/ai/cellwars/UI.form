@@ -78,15 +78,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="rbPvP" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="rbAIvAI" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rbPvAI" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="rbPvP" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbAIvAI" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbPvAI" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="98" max="32767" attributes="0"/>
               </Group>
@@ -132,6 +126,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="bgPlayersPlaying"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Human vs Human"/>
           </Properties>
         </Component>
@@ -149,13 +144,17 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Component id="lblBoardSettings" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="254" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblBoardSize" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="spnrBoardSize" min="-2" pref="58" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblCells" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="spnrCells" min="-2" pref="58" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -168,6 +167,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblBoardSize" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="spnrBoardSize" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCells" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="spnrCells" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -190,6 +191,18 @@
         <Component class="javax.swing.JLabel" name="lblBoardSize">
           <Properties>
             <Property name="text" type="java.lang.String" value="Board size:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCells">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cells/player"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="spnrCells">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

@@ -11,4 +11,17 @@ package ai.cellwars;
  */
 public class Game {
     
+    Integer boardSize;
+    Integer cellsPerPlayer;
+    Integer players; //2 = PvP; 1 = PvAI; 0 = AIvAI
+    Player redPlayer = null;
+    Player bluePlayer = null;
+    Board board = null;
+    
+    public Game(Integer boardSize, Integer cellsPerPlayer, Integer players){
+        this.boardSize = boardSize;
+        this.cellsPerPlayer = cellsPerPlayer;
+        this.players = players;
+        board = new Board(boardSize);
+    }
 }

@@ -39,6 +39,10 @@ public class BoardUI extends javax.swing.JFrame {
             tblBoard.setRowHeight(i,520/n);
         }
     }
+    
+    public javax.swing.JTable getTable(){
+        return this.tblBoard;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,8 +55,6 @@ public class BoardUI extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBoard = new javax.swing.JTable();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tblBoard.setBorder(new javax.swing.border.MatteBorder(null));
         tblBoard.setModel(new javax.swing.table.DefaultTableModel(

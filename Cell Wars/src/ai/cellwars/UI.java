@@ -5,13 +5,15 @@
  */
 package ai.cellwars;
 
+import javax.swing.ButtonModel;
+
 /**
  *
  * @author frikkie
  */
 public class UI extends javax.swing.JFrame {
 
-    BoardUI bui;
+    Game game;
     /**
      * Creates new form UI
      */
@@ -38,6 +40,8 @@ public class UI extends javax.swing.JFrame {
         spnrBoardSize = new javax.swing.JSpinner();
         lblBoardSettings = new javax.swing.JLabel();
         lblBoardSize = new javax.swing.JLabel();
+        lblCells = new javax.swing.JLabel();
+        spnrCells = new javax.swing.JSpinner();
         btnPlay = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblAISettings = new javax.swing.JLabel();
@@ -60,6 +64,7 @@ public class UI extends javax.swing.JFrame {
         });
 
         bgPlayersPlaying.add(rbPvP);
+        rbPvP.setSelected(true);
         rbPvP.setText("Human vs Human");
 
         lblPlayersPlayingHeading.setText("Select players");
@@ -74,12 +79,9 @@ public class UI extends javax.swing.JFrame {
             .addGroup(pnlPlayersLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlPlayersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPlayersLayout.createSequentialGroup()
-                        .addComponent(rbPvP))
-                    .addGroup(pnlPlayersLayout.createSequentialGroup()
-                        .addGroup(pnlPlayersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbAIvAI)
-                            .addComponent(rbPvAI))))
+                    .addComponent(rbPvP)
+                    .addComponent(rbAIvAI)
+                    .addComponent(rbPvAI))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
         pnlPlayersLayout.setVerticalGroup(
@@ -101,18 +103,26 @@ public class UI extends javax.swing.JFrame {
 
         lblBoardSize.setText("Board size:");
 
+        lblCells.setText("Cells/player");
+
+        spnrCells.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
         javax.swing.GroupLayout pnlBoardSettingsLayout = new javax.swing.GroupLayout(pnlBoardSettings);
         pnlBoardSettings.setLayout(pnlBoardSettingsLayout);
         pnlBoardSettingsLayout.setHorizontalGroup(
             pnlBoardSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBoardSettingsLayout.createSequentialGroup()
                 .addComponent(lblBoardSettings)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 254, Short.MAX_VALUE))
             .addGroup(pnlBoardSettingsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblBoardSize)
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
                 .addComponent(spnrBoardSize, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCells)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spnrCells, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlBoardSettingsLayout.setVerticalGroup(
@@ -122,7 +132,9 @@ public class UI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBoardSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBoardSize)
-                    .addComponent(spnrBoardSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnrBoardSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCells)
+                    .addComponent(spnrCells, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,9 +231,16 @@ public class UI extends javax.swing.JFrame {
 
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
         // TODO add your handling code here:
-        bui = new BoardUI((Integer) spnrBoardSize.getValue());
-        bui.setVisible(true);
-        this.setVisible(false);
+        Integer players;
+        if (rbPvP.isSelected()){
+            players = 2;
+        } else
+        if (rbPvAI.isSelected()){
+            players = 1;
+        } else {
+            players = 0;
+        }
+        game = new Game((Integer) spnrBoardSize.getValue(), (Integer) spnrCells.getValue(), players);
     }//GEN-LAST:event_btnPlayActionPerformed
 
     /**
@@ -255,6 +274,7 @@ public class UI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new UI().setVisible(true);
+                
             }
         });
     }
@@ -270,6 +290,7 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JLabel lblAISettings;
     private javax.swing.JLabel lblBoardSettings;
     private javax.swing.JLabel lblBoardSize;
+    private javax.swing.JLabel lblCells;
     private javax.swing.JLabel lblPlayersPlayingHeading;
     private javax.swing.JPanel pnlBoardSettings;
     private javax.swing.JPanel pnlPlayers;
@@ -277,5 +298,6 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbPvAI;
     private javax.swing.JRadioButton rbPvP;
     private javax.swing.JSpinner spnrBoardSize;
+    private javax.swing.JSpinner spnrCells;
     // End of variables declaration//GEN-END:variables
 }
