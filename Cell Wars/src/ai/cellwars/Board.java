@@ -159,6 +159,7 @@ public class Board {
         }
         
         determineFullInfluence(bt, occ, cellList);
+        
     }
 
     private void determineFullInfluence(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
@@ -169,9 +170,9 @@ public class Board {
             LinkedList<Cell> local = new LinkedList<>();
             local.add(cell);
             int minX;
-            int minY = minX = boardSize;
+            int minY;
             int maxX;
-            int maxY = maxX = 0;
+            int maxY;
             
             for (int i = 0; i < cell.infList.size(); ++i){
                 Integer x = cell.infList.get(i).getX();
@@ -183,19 +184,6 @@ public class Board {
                                 if (influenced.get(k).isCoord(x-1, y)){
                                     local.add(influenced.get(k).getOwner());
                                     temp.remove(influenced.get(k).getOwner());
-                                    
-                                    if ((x-1) < minX){
-                                        minX = x-1;
-                                    } else
-                                    if ((x-1) > maxX){
-                                        maxX = x-1;
-                                    }
-                                    if ((y) < minY){
-                                        minY = y;
-                                    } else
-                                    if ((y) > maxY){
-                                        maxY = y;
-                                    }
                                 }
                             }
                         }
@@ -205,18 +193,6 @@ public class Board {
                                     if (influenced.get(k).isCoord(x-1, y-1)){
                                         local.add(influenced.get(k).getOwner());
                                         temp.remove(influenced.get(k).getOwner());
-                                        if ((x-1) < minX){
-                                            minX = x-1;
-                                        } else
-                                        if ((x-1) > maxX){
-                                            maxX = x-1;
-                                        }
-                                        if ((y-1) < minY){
-                                            minY = y-1;
-                                        } else
-                                        if ((y-1) > maxY){
-                                            maxY = y-1;
-                                        }
                                     }
                                 }
                             }
@@ -227,19 +203,6 @@ public class Board {
                                     if (influenced.get(k).isCoord(x-1, y+1)){
                                         local.add(influenced.get(k).getOwner());
                                         temp.remove(influenced.get(k).getOwner());
-                                        
-                                        if ((x-1) < minX){
-                                            minX = x-1;
-                                        } else
-                                        if ((x-1) > maxX){
-                                            maxX = x-1;
-                                        }
-                                        if ((y+1) < minY){
-                                            minY = y+1;
-                                        } else
-                                        if ((y+1) > maxY){
-                                            maxY = y+1;
-                                        }
                                     }
                                 }
                             }
@@ -251,18 +214,6 @@ public class Board {
                                 if (influenced.get(k).isCoord(x+1, y)){
                                     local.add(influenced.get(k).getOwner());
                                     temp.remove(influenced.get(k).getOwner());
-                                    if ((x+1) < minX){
-                                        minX = x+1;
-                                    } else
-                                    if ((x+1) > maxX){
-                                        maxX = x+1;
-                                    }
-                                    if ((y) < minY){
-                                        minY = y;
-                                    } else
-                                    if ((y) > maxY){
-                                        maxY = y;
-                                    }
                                 }
                             }
                         }
@@ -272,18 +223,6 @@ public class Board {
                                     if (influenced.get(k).isCoord(x+1, y+1)){
                                         local.add(influenced.get(k).getOwner());
                                         temp.remove(influenced.get(k).getOwner());
-                                        if ((x+1) < minX){
-                                            minX = x+1;
-                                        } else
-                                        if ((x+1) > maxX){
-                                            maxX = x+1;
-                                        }
-                                        if ((y+1) < minY){
-                                            minY = y+1;
-                                        } else
-                                        if ((y+1) > maxY){
-                                            maxY = y+1;
-                                        }
                                     }
                                 }
                             }    
@@ -294,18 +233,6 @@ public class Board {
                                     if (influenced.get(k).isCoord(x+1, y-1)){
                                         local.add(influenced.get(k).getOwner());
                                         temp.remove(influenced.get(k).getOwner());
-                                        if ((x+1) < minX){
-                                            minX = x+1;
-                                        } else
-                                        if ((x+1) > maxX){
-                                            maxX = x+1;
-                                        }
-                                        if ((y-1) < minY){
-                                            minY = y-1;
-                                        } else
-                                        if ((y-1) > maxY){
-                                            maxY = y-1;
-                                        }
                                     }
                                 }
                             }
@@ -317,18 +244,6 @@ public class Board {
                                 if (influenced.get(k).isCoord(x, y+1)){
                                     local.add(influenced.get(k).getOwner());
                                     temp.remove(influenced.get(k).getOwner());
-                                    if ((x) < minX){
-                                        minX = x;
-                                    } else
-                                    if ((x) > maxX){
-                                        maxX = x;
-                                    }
-                                    if ((y+1) < minY){
-                                        minY = y+1;
-                                    } else
-                                    if ((y+1) > maxY){
-                                        maxY = y+1;
-                                    }
                                 }
                             }
                         }
@@ -338,18 +253,6 @@ public class Board {
                                     if (influenced.get(k).isCoord(x+1, y+1)){
                                         local.add(influenced.get(k).getOwner());
                                         temp.remove(influenced.get(k).getOwner());
-                                        if ((x+1) < minX){
-                                            minX = x+1;
-                                        } else
-                                        if ((x+1) > maxX){
-                                            maxX = x+1;
-                                        }
-                                        if ((y+1) < minY){
-                                            minY = y+1;
-                                        } else
-                                        if ((y+1) > maxY){
-                                            maxY = y+1;
-                                        }
                                     }
                                 }
                             }
@@ -359,19 +262,6 @@ public class Board {
                                 for (int k = 0; k < influenced.size(); ++k){
                                     if (influenced.get(k).isCoord(x-1, y+1)){
                                         local.add(influenced.get(k).getOwner());
-                                        temp.remove(influenced.get(k).getOwner());
-                                        if ((x-1) < minX){
-                                            minX = x-1;
-                                        } else
-                                        if ((x-1) > maxX){
-                                            maxX = x-1;
-                                        }
-                                        if ((y+1) < minY){
-                                            minY = y+1;
-                                        } else
-                                        if ((y+1) > maxY){
-                                            maxY = y+1;
-                                        }
                                     }
                                 }
                             }
@@ -383,18 +273,6 @@ public class Board {
                                 if (influenced.get(k).isCoord(x, y-1)){
                                     local.add(influenced.get(k).getOwner());
                                     temp.remove(influenced.get(k).getOwner());
-                                    if ((x) < minX){
-                                        minX = x;
-                                    } else
-                                    if ((x) > maxX){
-                                        maxX = x;
-                                    }
-                                    if ((y-1) < minY){
-                                        minY = y-1;
-                                    } else
-                                    if ((y-1) > maxY){
-                                        maxY = y-1;
-                                    }
                                 }
                             }
                         }
@@ -404,18 +282,6 @@ public class Board {
                                     if (influenced.get(k).isCoord(x+1, y-1)){
                                         local.add(influenced.get(k).getOwner());
                                         temp.remove(influenced.get(k).getOwner());
-                                        if ((x+1) < minX){
-                                            minX = x+1;
-                                        } else
-                                        if ((x+1) > maxX){
-                                            maxX = x+1;
-                                        }
-                                        if ((y-1) < minY){
-                                            minY = y-1;
-                                        } else
-                                        if ((y-1) > maxY){
-                                            maxY = y-1;
-                                        }
                                     }
                                 }
                             }
@@ -426,31 +292,13 @@ public class Board {
                                     if (influenced.get(k).isCoord(x-1, y-1)){
                                         local.add(influenced.get(k).getOwner());
                                         temp.remove(influenced.get(k).getOwner());
-                                        if ((x-1) < minX){
-                                            minX = x-1;
-                                        } else
-                                        if ((x-1) > maxX){
-                                            maxX = x-1;
-                                        }
-                                        if ((y-1) < minY){
-                                            minY = y-1;
-                                        } else
-                                        if ((y-1) > maxY){
-                                            maxY = y-1;
-                                        }
                                     }
                                 }
                             }
                         }
                 }
             } 
-//            for (int i = minX; i <= maxX; ++i){
-//                for (int j = minY; j <= maxY; ++j){
-//                    if (blockType[i][j] != occ){                    
-//                        blockType[i][j] = bt;
-//                    }
-//                }
-//            }
+
             minX = boardSize;
             maxX = 0;
             minY = boardSize;
@@ -471,17 +319,18 @@ public class Board {
             
             for (int j = 0; j < local.size(); ++j){
                 Cell c = local.get(j);
-
-                for (int i = 0; i < c.infList.size(); ++i){
-                    if (c.infList.get(i).x < minX){
-                        minX = c.infList.get(i).x;
-                    } else if (c.infList.get(i).x > maxX){
-                        maxX = c.infList.get(i).x;
-                    }
-                    if (c.infList.get(i).y < minY){
-                        minY = c.infList.get(i).y;
-                    } else if (c.infList.get(i).y > maxY){
-                        maxY = c.infList.get(i).y;
+                if (c != null){
+                    for (int i = 0; i < c.infList.size(); ++i){
+                        if (c.infList.get(i).x < minX){
+                            minX = c.infList.get(i).x;
+                        } else if (c.infList.get(i).x > maxX){
+                            maxX = c.infList.get(i).x;
+                        }
+                        if (c.infList.get(i).y < minY){
+                            minY = c.infList.get(i).y;
+                        } else if (c.infList.get(i).y > maxY){
+                            maxY = c.infList.get(i).y;
+                        }
                     }
                 }
             }
@@ -490,7 +339,12 @@ public class Board {
                 for (int j = minY; j <= maxY; ++j){
                     if (blockType[i][j] != occ){
                         blockType[i][j] = bt;
-                        influenced.add(new Position(i,j,local.peek()));
+                        influenced.add(new Position(i,j,null));
+                        for (int k = 0; k < local.size(); ++k){
+                            if (local.get(k) != null){
+                                local.get(k).infList.add(new Position(i,j,local.get(k)));
+                            }
+                        }
                     }
                 }
             }
