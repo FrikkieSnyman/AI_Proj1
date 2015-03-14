@@ -50,10 +50,10 @@ public class Game {
                 board.setBlockType(BlockType.RED_OCCUPIED,tmp.positionX,tmp.positionY);
             }
         }
+        board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+        board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
         
-        board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED);
         
-        board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED);
         
         BlockType[][] bt = board.getBoard();
         
