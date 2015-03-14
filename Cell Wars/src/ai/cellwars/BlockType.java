@@ -10,5 +10,5 @@ package ai.cellwars;
  * @author frikkie
  */
 public enum BlockType {
-    EMPTY, OCCUPIED, INFLUENCED
+    EMPTY, RED_OCCUPIED, RED_INFLUENCED, BLUE_OCCUPIED, BLUE_INFLUENCED
 }

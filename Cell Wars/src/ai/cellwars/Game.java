@@ -39,7 +39,10 @@ public class Game {
     }
     
     public void drawCells(){
- 
+        for (int i = 0; i < allCells.size(); ++i){
+            Cell tmp = allCells.get(i);
+            table.setValueAt(tmp.getColor(), tmp.positionY, tmp.positionX);
+        }
     }
     
 

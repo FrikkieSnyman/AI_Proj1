@@ -29,7 +29,7 @@ public class Player {
     public Player(Integer cells, String color,int fromX, int fromY, int toX, int toY){
         this.cells = cells;
         this.color = color;
-//        generateCells(fromX, fromY, toX, toY);
+        generateCells(fromX, fromY, toX, toY);
     }
     
     /**

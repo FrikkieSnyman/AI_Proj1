@@ -29,7 +29,7 @@ public class BoardUI extends javax.swing.JFrame {
     public BoardUI(Integer n) {
         initComponents();
         this.n = n;
-        System.out.println(this.n);
+        
         DefaultTableModel dtm = (DefaultTableModel) tblBoard.getModel();
         dtm.setRowCount(n);
         dtm.setColumnCount(n);
