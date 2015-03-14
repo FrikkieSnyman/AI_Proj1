@@ -29,7 +29,7 @@ public class Player {
     public Player(Integer cells, String color,int fromX, int fromY, int toX, int toY){
         this.cells = cells;
         this.color = color;
-        generateCells(fromX, fromY, toX, toY);
+//        generateCells(fromX, fromY, toX, toY);
     }
     
     /**
@@ -51,7 +51,7 @@ public class Player {
      */
     private void generateCells(int fromX, int fromY, int toX, int toY){
         Integer randX, randY;
-        for (int i = 0; i < cells; ++cells){
+        for (int i = 0; i < cells; ++i){
             randX = randomInteger(fromX, toX);
             randY = randomInteger(fromY, toY);
             cellList.add(new Cell(randX, randY, color));
