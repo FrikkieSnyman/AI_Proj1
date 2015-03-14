@@ -31,6 +31,7 @@ public class Game {
         this.players = players;
         board = new Board(boardSize);
         table = board.getTable();
+        board.setTable(board);
         bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize); 
         allCells.addAll(bluePlayer.getCellList());
         redPlayer = new Player(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize);

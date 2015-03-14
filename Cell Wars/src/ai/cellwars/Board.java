@@ -29,8 +29,16 @@ public class Board {
         this.blockType[x][y] = bt;
     }
     
+    public BlockType getBlockType(int x, int y){
+        return blockType[x][y];
+    }
+    
     public javax.swing.JTable getTable(){
         return boardUI.getTable();
+    }
+    
+    public void setTable(Board gameBoard){
+        boardUI.setBoard(gameBoard);
     }
     
     public void setTable(javax.swing.JTable table){
