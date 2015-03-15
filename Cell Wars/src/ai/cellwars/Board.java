@@ -37,17 +37,17 @@ public class Board {
         return blockType[x][y];
     }
     
-    public javax.swing.JTable getTable(){
-        return boardUI.getTable();
+    public javax.swing.JPanel getPanel(){
+        return boardUI.getPanel();
     }
     
     public void setTable(Board gameBoard){
         boardUI.setBoard(gameBoard);
     }
     
-    public void setTable(javax.swing.JTable table){
-        boardUI.setTable(table);
-    }
+//    public void setTable(javax.swing.JTable table){
+//        boardUI.setTable(table);
+//    }
 
     public void determineInfluenced(BlockType bt, BlockType occ) {
 

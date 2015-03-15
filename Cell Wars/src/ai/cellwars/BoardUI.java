@@ -39,27 +39,27 @@ public class BoardUI extends javax.swing.JFrame {
         selectedX = -1;
         selectedY = -1;
         
-        DefaultTableModel dtm = (DefaultTableModel) tblBoard.getModel();
-        dtm.setRowCount(n);
-        dtm.setColumnCount(n);
-        tblBoard.setModel(dtm);
-        tblBoard.setShowGrid(true);
-        for (int i = 0; i < n; ++i){
-            tblBoard.setRowHeight(i,520/n);
-        }
+//        DefaultTableModel dtm = (DefaultTableModel) tblBoard.getModel();
+//        dtm.setRowCount(n);
+//        dtm.setColumnCount(n);
+//        tblBoard.setModel(dtm);
+//        tblBoard.setShowGrid(true);
+//        for (int i = 0; i < n; ++i){
+//            tblBoard.setRowHeight(i,520/n);
+//        }
     }
     
-    public javax.swing.JTable getTable(){
-        return this.tblBoard;
+    public javax.swing.JPanel getPanel(){
+        return this.gamePanel;
     }
     
     public void setBoard(Board gameBoard) {
         this.gameBoard = gameBoard;
     }
     
-    public void setTable(javax.swing.JTable table){
-        tblBoard = table;
-    }
+//    public void setTable(javax.swing.JTable table){
+//        tblBoard = table;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,72 +70,34 @@ public class BoardUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblBoard = new javax.swing.JTable();
+        gamePanel = new javax.swing.JPanel();
 
-        tblBoard.setBorder(new javax.swing.border.MatteBorder(null));
-        tblBoard.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblBoard.setAutoscrolls(false);
-        tblBoard.setCellSelectionEnabled(true);
-        tblBoard.setFocusable(false);
-        tblBoard.setTableHeader(null);
-        tblBoard.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblBoardMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblBoard);
+        gamePanel.setName("gamePanel"); // NOI18N
+
+        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
+        gamePanel.setLayout(gamePanelLayout);
+        gamePanelLayout.setHorizontalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 940, Short.MAX_VALUE)
+        );
+        gamePanelLayout.setVerticalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 532, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+            .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tblBoardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBoardMouseClicked
-        // TODO add your handling code here:
-        Integer x = tblBoard.getSelectedColumn();
-        Integer y = tblBoard.getSelectedRow();
-        
-        if (!selected) {
-            if (!(gameBoard.getBlockType(x, y) != null && (gameBoard.getBlockType(x, y).equals(BlockType.BLUE_OCCUPIED) || gameBoard.getBlockType(x, y).equals(BlockType.RED_OCCUPIED)))) {
-                selected = false;
-                selectedX = -1;
-                selectedY = -1;
-                tblBoard.clearSelection();
-            }
-            else {
-                selected = true;
-                selectedX = x;
-                selectedY = y;
-
-            }
-        }
-        else {
-            
-        }
-    }//GEN-LAST:event_tblBoardMouseClicked
 
     /**
      * @param args the command line arguments
@@ -173,7 +135,6 @@ public class BoardUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBoard;
+    private javax.swing.JPanel gamePanel;
     // End of variables declaration//GEN-END:variables
 }
