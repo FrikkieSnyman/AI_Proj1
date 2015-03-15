@@ -55,6 +55,8 @@ public class Game {
         for (int x = 0; x < boardSize; ++x) {
             for (int y = 0; y < boardSize; ++y) {
                 btns[y][x] = new javax.swing.JButton(y + "_" + x);
+                btns[y][x].setText("");
+                btns[y][x].setFocusable(false);
 
                 gamePanel.add(btns[y][x]);
             }
@@ -67,10 +69,12 @@ public class Game {
             if (tmpCell.getColor().compareTo("blue") == 0) {
                 board.setBlockType(BlockType.BLUE_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
                 btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.blue);
+                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
             }
             else {
                 board.setBlockType(BlockType.RED_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
                 btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.red);
+                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
             }
         }
 
@@ -83,12 +87,10 @@ public class Game {
         for (int i = 0; i < boardSize; ++i){
             for (int j = 0; j < boardSize; ++j){
                 if (bt[i][j] != BlockType.EMPTY){
-                    // System.out.println("here");
-                    if(bt[i][j] == BlockType.BLUE_INFLUENCED){
-                        System.out.println("here");
-                        btns[i][j].setBackground(Color.red);
-                    } else if (bt[i][j] == BlockType.RED_INFLUENCED){
-                        btns[i][j].setBackground(Color.blue);
+                    if(bt[i][j] == BlockType.RED_INFLUENCED){
+                        btns[i][j].setBackground(new Color(232, 169, 169));
+                    } else if (bt[i][j] == BlockType.BLUE_INFLUENCED){
+                        btns[i][j].setBackground(new Color(169, 181, 232));
                     }
                 }
             }
