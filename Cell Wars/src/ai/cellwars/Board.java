@@ -57,8 +57,9 @@ public class Board {
             Cell cell = cellList.get(i);
             Integer x = cellList.get(i).positionX;
             Integer y = cellList.get(i).positionY;
-
+            
             if (blockType[x][y] == occ){
+                System.out.println("here");
                 if ((y+1) < boardSize){
                     if (blockType[x][y+1] != occ){
                         blockType[x][y+1] = bt;
@@ -156,6 +157,8 @@ public class Board {
                     }
                 }
             }
+            
+            
         }
         
         determineFullInfluence(bt, occ, cellList);
@@ -165,6 +168,7 @@ public class Board {
     private void determineFullInfluence(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
         LinkedList<Cell> temp = new LinkedList<>();
         temp.addAll(cellList);
+        
         while(temp.size() > 0){
             Cell cell = temp.remove();
             LinkedList<Cell> local = new LinkedList<>();
@@ -262,6 +266,7 @@ public class Board {
                                 for (int k = 0; k < influenced.size(); ++k){
                                     if (influenced.get(k).isCoord(x-1, y+1)){
                                         local.add(influenced.get(k).getOwner());
+                                        temp.remove(influenced.get(k).getOwner());
                                     }
                                 }
                             }
@@ -304,7 +309,9 @@ public class Board {
             minY = boardSize;
             maxY = 0;
             Cell tmp = local.remove();
+            
             for (int i = 0; i < tmp.infList.size(); ++i){
+                
                 if (tmp.infList.get(i).x < minX){
                     minX = tmp.infList.get(i).x;
                 } else if (tmp.infList.get(i).x > maxX){
@@ -335,6 +342,8 @@ public class Board {
                 }
             }
             
+            
+            
             for (int i = minX; i <= maxX; ++i){
                 for (int j = minY; j <= maxY; ++j){
                     if (blockType[i][j] != occ){
@@ -346,8 +355,13 @@ public class Board {
                             }
                         }
                     }
+                   
+                    System.out.println(blockType[i][j].name());
+                    
                 }
             }
         }
+        
+        
     }
 }

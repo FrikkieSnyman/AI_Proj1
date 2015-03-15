@@ -53,15 +53,15 @@ public class Game {
     public void drawCells(){
         // GridBagConstraints con = new GridBagConstraints();
         
-        // for (int i = 0; i < allCells.size(); ++i){
-        //     Cell tmp = allCells.get(i);
-        //     table.setValueAt(tmp.getColor().toUpperCase(), tmp.positionY, tmp.positionX);
-        //     if (tmp.getColor().compareTo("blue") == 0){
-        //         board.setBlockType(BlockType.BLUE_OCCUPIED,tmp.positionX,tmp.positionY);
-        //     } else{
-        //         board.setBlockType(BlockType.RED_OCCUPIED,tmp.positionX,tmp.positionY);
-        //     }
-        // }
+         for (int i = 0; i < allCells.size(); ++i){
+             Cell tmp = allCells.get(i);
+//             table.setValueAt(tmp.getColor().toUpperCase(), tmp.positionY, tmp.positionX);
+             if (tmp.getColor().compareTo("blue") == 0){
+                 board.setBlockType(BlockType.BLUE_OCCUPIED,tmp.positionX,tmp.positionY);
+             } else{
+                 board.setBlockType(BlockType.RED_OCCUPIED,tmp.positionX,tmp.positionY);
+             }
+         }
 
         // gamePanel.add(new javax.swing.JButton("test"));
 
