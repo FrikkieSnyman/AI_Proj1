@@ -51,32 +51,10 @@ public class Game {
     }
     
     public void drawCells(){
-        // GridBagConstraints con = new GridBagConstraints();
-        
-         for (int i = 0; i < allCells.size(); ++i){
-             Cell tmp = allCells.get(i);
-//             table.setValueAt(tmp.getColor().toUpperCase(), tmp.positionY, tmp.positionX);
-             if (tmp.getColor().compareTo("blue") == 0){
-                 board.setBlockType(BlockType.BLUE_OCCUPIED,tmp.positionX,tmp.positionY);
-             } else{
-                 board.setBlockType(BlockType.RED_OCCUPIED,tmp.positionX,tmp.positionY);
-             }
-         }
-
-        // gamePanel.add(new javax.swing.JButton("test"));
-
         //Create button grid
         for (int x = 0; x < boardSize; ++x) {
             for (int y = 0; y < boardSize; ++y) {
-
-                // con.gridx = x;
-                // con.gridy = y;
-
                 btns[y][x] = new javax.swing.JButton(y + "_" + x);
-
-                
-
-                // btns[x][y].setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
                 gamePanel.add(btns[y][x]);
             }
@@ -87,9 +65,11 @@ public class Game {
             Cell tmpCell = allCells.get(i);
 
             if (tmpCell.getColor().compareTo("blue") == 0) {
+                board.setBlockType(BlockType.BLUE_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
                 btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.blue);
             }
             else {
+                board.setBlockType(BlockType.RED_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
                 btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.red);
             }
         }
