@@ -10,25 +10,43 @@ package ai.cellwars;
  * @author frikkie
  */
 public class Position {
-        int x,y;
-        public Position(int x, int y){
+        Integer x,y;
+        Cell ownedByCell;
+        public Position(Integer x, Integer y, Cell cell){
             this.x = x;
             this.y = y;
+            this.ownedByCell = cell;
         }
         
-        public int getY(){
+        public Integer getY(){
             return y;
         }
         
-        public int getX(){
+        public Integer getX(){
             return x;
         }
         
-        public void setY(int y){
+        public void setY(Integer y){
             this.y = y;
         }
         
-        public void setX(int x){
+        public void setX(Integer x){
             this.x = x;
+        }
+        
+        public Cell getOwner(){
+            return ownedByCell;
+        }
+        
+        public void setOwner(Cell cell){
+            ownedByCell = cell;
+        }
+        
+        public Boolean isCoord(int x, int y){
+            if (this.x == x && this.y == y){
+                return true;
+            }
+            
+            return false;
         }
 }

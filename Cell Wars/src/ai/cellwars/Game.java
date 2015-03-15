@@ -95,8 +95,8 @@ public class Game {
         }
 
         //Set cell influence to correct color
-        board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED);
-        board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED);
+        board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+        board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
         
         BlockType[][] bt = board.getBoard();
         

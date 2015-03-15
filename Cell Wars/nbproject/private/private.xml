@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/rez/Documents/University/COS314/Assign1/AI_Proj1/Cell%20Wars/src/ai/cellwars/Board.java</file>
-            <file>file:/Users/rez/Documents/University/COS314/Assign1/AI_Proj1/Cell%20Wars/src/ai/cellwars/BlockType.java</file>
-            <file>file:/Users/rez/Documents/University/COS314/Assign1/AI_Proj1/Cell%20Wars/src/ai/cellwars/BoardUI.java</file>
-            <file>file:/Users/rez/Documents/University/COS314/Assign1/AI_Proj1/Cell%20Wars/src/ai/cellwars/UI.java</file>
-            <file>file:/Users/rez/Documents/University/COS314/Assign1/AI_Proj1/Cell%20Wars/src/ai/cellwars/Cell.java</file>
-            <file>file:/Users/rez/Documents/University/COS314/Assign1/AI_Proj1/Cell%20Wars/src/ai/cellwars/Game.java</file>
+            <file>file:/home/frikkie/Documents/UP/COS314/Project1/AI_Proj1/Cell%20Wars/src/ai/cellwars/Position.java</file>
+            <file>file:/home/frikkie/Documents/UP/COS314/Project1/AI_Proj1/Cell%20Wars/src/ai/cellwars/Player.java</file>
+            <file>file:/home/frikkie/Documents/UP/COS314/Project1/AI_Proj1/Cell%20Wars/src/ai/cellwars/UI.java</file>
+            <file>file:/home/frikkie/Documents/UP/COS314/Project1/AI_Proj1/Cell%20Wars/src/ai/cellwars/Game.java</file>
+            <file>file:/home/frikkie/Documents/UP/COS314/Project1/AI_Proj1/Cell%20Wars/src/ai/cellwars/Board.java</file>
+            <file>file:/home/frikkie/Documents/UP/COS314/Project1/AI_Proj1/Cell%20Wars/src/ai/cellwars/BlockType.java</file>
+            <file>file:/home/frikkie/Documents/UP/COS314/Project1/AI_Proj1/Cell%20Wars/src/ai/cellwars/BoardUI.java</file>
+            <file>file:/home/frikkie/Documents/UP/COS314/Project1/AI_Proj1/Cell%20Wars/src/ai/cellwars/Cell.java</file>
         </group>
     </open-files>
 </project-private>
