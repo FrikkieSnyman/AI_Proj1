@@ -1,0 +1,4 @@
+# Compiled Java code #
+
+*.class
+/Cell Wars/dist/
