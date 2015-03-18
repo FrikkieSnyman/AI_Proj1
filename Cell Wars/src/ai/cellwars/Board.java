@@ -192,9 +192,82 @@ public class Board {
             
         }
         
-        determineFullInfluence(bt, occ, cellList);
+//        determineFullInfluence(bt, occ, cellList);
+        
         
     }
+    /**
+     * 
+     * @param bt
+     * @param occ
+     * @param cellList 
+     */
+    public void determineFullInfluenceV2(BlockType bt, BlockType occ, LinkedList<Cell> cellList){
+        BlockType opp = null;
+        BlockType oppBt = null;
+        
+        if (occ == BlockType.BLUE_OCCUPIED){
+            opp = BlockType.RED_OCCUPIED;
+            oppBt = BlockType.RED_INFLUENCED;
+        } else {
+            opp = BlockType.BLUE_OCCUPIED;
+            oppBt = BlockType.BLUE_INFLUENCED;
+        }
+        for (int i = 0; i < cellList.size(); ++i){
+            if ((cellList.get(i).positionX - 1) >= 0 && ( (blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY] != occ) || (blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY] != opp))){
+                blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY] = bt;
+                influenced.add(new Position(cellList.get(i).positionX - 1, cellList.get(i).positionY,cellList.get(i)));
+                cellList.get(i).infList.add(influenced.getLast());
+            }
+            if ((cellList.get(i).positionX +1) < boardSize && ( (blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY] != occ) || (blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY] != opp))){
+                blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY] = bt;
+                influenced.add(new Position(cellList.get(i).positionX + 1, cellList.get(i).positionY,cellList.get(i)));
+                cellList.get(i).infList.add(influenced.getLast());
+            }
+            if ((cellList.get(i).positionY - 1) >= 0 && ( (blockType[cellList.get(i).positionX][cellList.get(i).positionY - 1] != occ) || (blockType[cellList.get(i).positionX][cellList.get(i).positionY - 1] != opp))){
+                blockType[cellList.get(i).positionX][cellList.get(i).positionY - 1] = bt;
+                influenced.add(new Position(cellList.get(i).positionX, cellList.get(i).positionY - 1,cellList.get(i)));
+                cellList.get(i).infList.add(influenced.getLast());
+            }
+            if ((cellList.get(i).positionY + 1) < boardSize && ( (blockType[cellList.get(i).positionX][cellList.get(i).positionY + 1] != occ) || (blockType[cellList.get(i).positionX][cellList.get(i).positionY + 1] != opp))){
+                blockType[cellList.get(i).positionX][cellList.get(i).positionY + 1] = bt;
+                influenced.add(new Position(cellList.get(i).positionX, cellList.get(i).positionY + 1,cellList.get(i)));
+                cellList.get(i).infList.add(influenced.getLast());
+            }
+            if ((((cellList.get(i).positionX - 1) >= 0) && ((cellList.get(i).positionY - 1) >= 0)) && ( (blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY - 1] != occ) || (blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY - 1] != opp))){
+                blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY - 1] = bt;
+                influenced.add(new Position(cellList.get(i).positionX - 1, cellList.get(i).positionY - 1,cellList.get(i)));
+                cellList.get(i).infList.add(influenced.getLast());
+            }
+            if ((((cellList.get(i).positionX - 1) >= 0) && ((cellList.get(i).positionY + 1) < boardSize))  && ( (blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY + 1] != occ) || (blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY + 1] != opp))){
+                blockType[cellList.get(i).positionX - 1][cellList.get(i).positionY + 1] = bt;
+                influenced.add(new Position(cellList.get(i).positionX - 1, cellList.get(i).positionY + 1,cellList.get(i)));
+                cellList.get(i).infList.add(influenced.getLast());
+            }
+            if ((((cellList.get(i).positionX + 1) < boardSize) && ((cellList.get(i).positionY + 1) < boardSize))  && ( (blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY + 1] != occ) || (blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY + 1] != opp))){
+                blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY + 1] = bt;
+                influenced.add(new Position(cellList.get(i).positionX + 1, cellList.get(i).positionY + 1,cellList.get(i)));
+                cellList.get(i).infList.add(influenced.getLast());
+            }
+            if ((((cellList.get(i).positionX + 1) < boardSize) && ((cellList.get(i).positionY - 1) >= 0))  && ( (blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY - 1] != occ) || (blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY - 1] != opp))){
+                blockType[cellList.get(i).positionX + 1][cellList.get(i).positionY - 1] = bt;
+                influenced.add(new Position(cellList.get(i).positionX + 1, cellList.get(i).positionY - 1,cellList.get(i)));
+                cellList.get(i).infList.add(influenced.getLast());
+            }
+            
+            determineNeighbours(cellList.get(i));
+        }
+    }
+    
+    private void determineNeighbours(Cell cell){
+        int cellX = cell.positionX;
+        int cellY = cell.positionY;
+        for (int i = 0; i < cell.infList.size(); ++i){
+            
+        }
+        
+    }
+    
     /**
      * 
      * @param bt
@@ -279,6 +352,32 @@ public class Board {
                                 
                             }
                         }
+                    } else if (blockType[x+1][y] == opp){
+                        // Cell takeover
+                        LinkedList<Cell> tmpList = null;
+                        LinkedList<Cell> curList = null;
+                        if (occ == BlockType.BLUE_OCCUPIED){
+                            tmpList = boardUI.game.redPlayer.cellList;
+                            curList = boardUI.game.bluePlayer.cellList;
+                        } else {
+                            tmpList = boardUI.game.bluePlayer.cellList;
+                            curList = boardUI.game.redPlayer.cellList;
+                        }
+                        
+                        for (int l = 0; l < tmpList.size(); ++l){
+                            if (tmpList.get(l).positionX == (x+1) && tmpList.get(l).positionY == y){
+                                Cell yolo = tmpList.remove(l);
+                                yolo.color = cell.color;
+                                yolo.infList = null;
+                                curList.add(yolo);
+                                temp.add(yolo);
+                                blockType[x+1][y] = occ;
+                                  
+                                boardUI.game.determineInfluence();
+//                                boardUI.game.drawCells();
+                            }
+                        }
+                        
                     }
                 }
                 if ((y+1) < boardSize){
@@ -292,6 +391,32 @@ public class Board {
                                 
                             }
                         }
+                    } else if (blockType[x][y+1] == opp){
+                        // Cell takeover
+                        LinkedList<Cell> tmpList = null;
+                        LinkedList<Cell> curList = null;
+                        if (occ == BlockType.BLUE_OCCUPIED){
+                            tmpList = boardUI.game.redPlayer.cellList;
+                            curList = boardUI.game.bluePlayer.cellList;
+                        } else {
+                            tmpList = boardUI.game.bluePlayer.cellList;
+                            curList = boardUI.game.redPlayer.cellList;
+                        }
+                        
+                        for (int l = 0; l < tmpList.size(); ++l){
+                            if (tmpList.get(l).positionX == (x) && tmpList.get(l).positionY == (y+1)){
+                                Cell yolo = tmpList.remove(l);
+                                yolo.color = cell.color;
+                                yolo.infList = null;
+                                curList.add(yolo);
+                                temp.add(yolo);
+                                blockType[x][y+1] = occ;
+                                  
+                                boardUI.game.determineInfluence();
+//                                boardUI.game.drawCells();
+                            }
+                        }
+                        
                     }
                 }
                 if ((y-1) >= 0){
@@ -305,6 +430,32 @@ public class Board {
                                 
                             }
                         }
+                    } else if (blockType[x][y-1] == opp){
+                        // Cell takeover
+                        LinkedList<Cell> tmpList = null;
+                        LinkedList<Cell> curList = null;
+                        if (occ == BlockType.BLUE_OCCUPIED){
+                            tmpList = boardUI.game.redPlayer.cellList;
+                            curList = boardUI.game.bluePlayer.cellList;
+                        } else {
+                            tmpList = boardUI.game.bluePlayer.cellList;
+                            curList = boardUI.game.redPlayer.cellList;
+                        }
+                        
+                        for (int l = 0; l < tmpList.size(); ++l){
+                            if (tmpList.get(l).positionX == (x) && tmpList.get(l).positionY == (y-1)){
+                                Cell yolo = tmpList.remove(l);
+                                yolo.color = cell.color;
+                                yolo.infList = null;
+                                curList.add(yolo);
+                                temp.add(yolo);
+                                blockType[x][y-1] = occ;
+                                  
+                                boardUI.game.determineInfluence();
+//                                boardUI.game.drawCells();
+                            }
+                        }
+                        
                     }
                 }
             } 
