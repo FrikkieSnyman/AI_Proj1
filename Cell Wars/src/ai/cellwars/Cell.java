@@ -17,43 +17,71 @@ public class Cell {
     Integer moveCount = 1;
     String color;
     LinkedList<Position> infList = null;
-    
+    /**
+     * 
+     */
     public Cell(){
         
     }
-    
+    /**
+     * 
+     * @param positionX
+     * @param positionY
+     * @param color 
+     */
     public Cell(Integer positionX, Integer positionY, String color){
         this.positionX = positionX;
         this.positionY = positionY;
         this.color = color;
         this.infList = new LinkedList<>();
     }
-    
+    /**
+     * 
+     * @param positionX 
+     */
     public void setPositionX (Integer positionX){
         this.positionX = positionX;
     }
-    
+    /**
+     * 
+     * @param positionY 
+     */
     public void setPositionY (Integer positionY){
         this.positionY = positionY;
     }
-    
+    /**
+     * 
+     * @param color 
+     */
     public void setColor (String color){
         this.color = color;
     }
-    
+    /**
+     * 
+     * @return 
+     */
     public Integer[] getPosition(){
         Integer[] returnThis = {positionX, positionY};
         return returnThis;
     }
-    
+    /**
+     * 
+     * @return 
+     */
     public String getColor(){
         return color;
     }
-    
+    /**
+     * 
+     * @return 
+     */
     public Integer getMoveCount(){
         return moveCount;
     }
-    
+    /**
+     * 
+     * @param moveCount 
+     */
     public void setMoveCout(Integer moveCount){
         this.moveCount = moveCount;
     }
