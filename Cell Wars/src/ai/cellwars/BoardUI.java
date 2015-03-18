@@ -281,8 +281,8 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
 //        System.out.println(game.board.cellList.get(0).getPosition()[1]);
         
         //Redraw the board
-//        game.redrawBoard();
-        game.drawBoard();
+        game.redrawBoard();
+//        game.drawBoard();
         
         //Check for win condition
         if (game.currentPlayer == game.bluePlayer) {

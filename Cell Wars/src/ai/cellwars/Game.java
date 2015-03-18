@@ -225,7 +225,10 @@ public class Game {
         /**
          * 
          */
-        drawCells();
-        drawCells();
+//        drawCells();
+//        drawCells();
+        
+        drawBoard();
+        drawBoard();
     }
 }
