@@ -234,8 +234,8 @@ public class Board {
                             if (influenced.get(k).isCoord(x-1, y)){
                                 if (!local.contains(influenced.get(k).getOwner())){
                                     local.add(influenced.get(k).getOwner());
+                                    temp.remove(influenced.get(k).getOwner());
                                 }
-                                temp.remove(influenced.get(k).getOwner());
                             }
                         }
                     } else if (blockType[x-1][y] == opp){
@@ -274,8 +274,9 @@ public class Board {
                             if (influenced.get(k).isCoord(x+1, y)){
                                 if (!local.contains(influenced.get(k).getOwner())){
                                     local.add(influenced.get(k).getOwner());
+                                    temp.remove(influenced.get(k).getOwner());
                                 }
-                                temp.remove(influenced.get(k).getOwner());
+                                
                             }
                         }
                     }
@@ -286,8 +287,9 @@ public class Board {
                             if (influenced.get(k).isCoord(x, y+1)){
                                 if (!local.contains(influenced.get(k).getOwner())){
                                     local.add(influenced.get(k).getOwner());
+                                    temp.remove(influenced.get(k).getOwner());
                                 }
-                                temp.remove(influenced.get(k).getOwner());
+                                
                             }
                         }
                     }
@@ -298,8 +300,9 @@ public class Board {
                             if (influenced.get(k).isCoord(x, y-1)){
                                 if (!local.contains(influenced.get(k).getOwner())){
                                     local.add(influenced.get(k).getOwner());
+                                    temp.remove(influenced.get(k).getOwner());
                                 }
-                                temp.remove(influenced.get(k).getOwner());
+                                
                             }
                         }
                     }
@@ -348,7 +351,8 @@ public class Board {
                 for (int j = minY; j <= maxY; ++j){
                     if (blockType[i][j] != occ){
                         blockType[i][j] = bt;
-                        Position tmpPos = new Position(i,j,tmp);
+                        Cell own = getClosest(i,j,local);
+                        Position tmpPos = new Position(i,j,own);
                         influenced.add(tmpPos);
                         for (int k = 0; k < local.size(); ++k){
                             local.get(k).moveCount = local.size();
@@ -364,22 +368,47 @@ public class Board {
     private void clearInfluencedBlocks(BlockType bt) {
         for (int i = 0; i < influenced.size(); ++i){
             if (bt == BlockType.BLUE_INFLUENCED){
-                if (influenced.get(i).getOwner().color.compareTo("blue") == 0 ){
+//                if (influenced.get(i).getOwner().color.compareTo("blue") == 0 ){
                     influenced.remove(i);
-                }
+//                }
             } else if (bt == BlockType.RED_INFLUENCED){
-                if (influenced.get(i).getOwner().color.compareTo("red") == 0 ){
+//                if (influenced.get(i).getOwner().color.compareTo("red") == 0 ){
                     influenced.remove(i);
-                }
+//                }
             }
         }
         
         for (int i = 0; i < boardSize; ++i){
             for (int j = 0; j < boardSize; ++j){
                 if (blockType[i][j] == bt){
-                    blockType[i][j] = BlockType.EMPTY;
+                    for (int k = 0; k < influenced.size(); ++k){
+                        if (influenced.get(k).isCoord(i, j)){
+                            break;
+                        }
+                        blockType[i][j] = BlockType.EMPTY;
+                    }
                 }
             }
         }
+    }
+
+    private Cell getClosest(int i, int j, LinkedList<Cell> local) {
+        Cell returnThis = local.get(0);
+        int minx = local.get(0).positionX - i;
+        int miny = local.get(0).positionY - j;
+        double minr = Math.sqrt((minx*minx + miny*miny));
+        
+        for (int c = 1; c < local.size(); ++c){
+            int x = Math.abs(local.get(0).positionX - i);
+            int y = Math.abs(local.get(0).positionY - j);
+            double r = Math.sqrt((x*x + y*y));
+            
+            if (minr > r){
+                r = minr;
+                returnThis = local.get(c);
+            }
+        }
+        
+        return returnThis;
     }
 }
