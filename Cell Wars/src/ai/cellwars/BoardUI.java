@@ -6,6 +6,7 @@
 package ai.cellwars;
 
 import java.awt.event.ActionListener;
+import java.util.ListIterator;
 import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
 
@@ -219,6 +220,9 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
     }
     
     public void moveCell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
+        if (!validMove(startY, startX, stopY, stopX)) {
+            return;
+        }
 //        System.out.println(startX + " " + startY + " " + stopX + " " + stopY);
         if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
             game.board.blockType[stopX][stopY] = BlockType.BLUE_OCCUPIED;
@@ -258,14 +262,53 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             }
         }
         
-        for (int i = 0; i < game.board.cellList.size(); ++i){
-            if (Objects.equals(game.board.cellList.get(i).positionX, startX) && Objects.equals(game.board.cellList.get(i).positionY, startY)){
-                game.board.cellList.get(i).setPositionX(stopX);
-                game.board.cellList.get(i).setPositionY(stopY);
+//        for (int i = 0; i < game.board.cellList.size(); ++i){
+//            if (Objects.equals(game.board.cellList.get(i).positionX, startX) && Objects.equals(game.board.cellList.get(i).positionY, startY)){
+//                game.board.cellList.get(i).setPositionX(stopX);
+//                game.board.cellList.get(i).setPositionY(stopY);
+//            }
+//        }
+        
+//        System.out.println(game.allCells.get(0).getPosition()[1]);
+//        System.out.println(game.board.cellList.get(0).getPosition()[1]);
+        
+        game.redrawBoard();
+    }
+    
+    public boolean validMove(Integer startY, Integer startX, Integer stopY, Integer stopX) {
+        if (startX == stopX && startY == stopY) {
+            return false;
+        } else if (startX != stopX && startY != stopY) {
+            return false;
+        }
+        
+        Integer moveCount = 0;
+        
+        ListIterator<Cell> iterator = game.allCells.listIterator();
+        Cell current = null;
+        
+        while (iterator.hasNext()) {
+            current = iterator.next();
+            
+            if (current.positionX == startX && current.positionY == startY) {
+                moveCount = current.moveCount;
+                break;
             }
         }
         
-        game.redrawBoard();
+        System.out.println(moveCount);
+        
+        if (startX == stopX) {
+            if (Math.abs(startY - stopY) > moveCount) {
+                return false;
+            }
+        } else {
+            if (Math.abs(startX - stopX) > moveCount) {
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
