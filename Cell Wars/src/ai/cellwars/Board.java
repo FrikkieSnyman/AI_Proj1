@@ -384,6 +384,7 @@ public class Board {
                         Position tmpPos = new Position(i,j,tmp);
                         influenced.add(tmpPos);
                         for (int k = 0; k < local.size(); ++k){
+                            local.get(k).moveCount = local.size();
                             local.get(k).infList.add(tmpPos);
                         }
                     }
