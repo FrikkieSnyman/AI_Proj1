@@ -5,18 +5,23 @@
  */
 package ai.cellwars;
 
+import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author frikkie
  */
-public class BoardUI extends javax.swing.JFrame {
+public class BoardUI extends javax.swing.JFrame implements ActionListener{
     Integer n;
     Boolean selected;
     Integer selectedX;
     Integer selectedY;
+    Integer currentX;
+    Integer currentY;
     Board gameBoard;
+    Game game;
+    Integer boardSize;
     
     /**
      * Creates new form BoardUI
@@ -32,9 +37,10 @@ public class BoardUI extends javax.swing.JFrame {
     /**
      * Creates new form BoardUI
      */
-    public BoardUI(Integer n) {
+    public BoardUI(Integer n, Game game) {
         initComponents();
         this.n = n;
+        this.game = game;
         selected = false;
         selectedX = -1;
         selectedY = -1;
@@ -133,6 +139,76 @@ public class BoardUI extends javax.swing.JFrame {
             }
         });
     }
+    
+    public javax.swing.JButton[][] createBTNS(Integer boardSize) {
+        this.boardSize = boardSize;
+        javax.swing.JButton[][] btns = new javax.swing.JButton[boardSize][boardSize];
+        
+        for (int x = 0; x < boardSize; ++x) {
+            for (int y = 0; y < boardSize; ++y) {
+                btns[y][x] = new javax.swing.JButton(y + "_" + x);
+                btns[y][x].setText("");
+//                btns[y][x].setFocusable(false);
+                btns[y][x].addActionListener(this);
+
+                gamePanel.add(btns[y][x]);
+            }
+        }
+        
+        return btns;
+    }
+    
+    public void actionPerformed(java.awt.event.ActionEvent e) {
+       setCurrent(e);
+       
+       setSelected();
+       
+       System.out.println("Selected: " + selected);
+
+       if (selected) {
+           game.btns[selectedY][selectedX].setBackground(java.awt.Color.yellow);
+       }
+    }
+    
+    public void setCurrent(java.awt.event.ActionEvent e) {
+        for (int x = 0; x < boardSize; ++x) {
+            for (int y = 0; y < boardSize; ++y) {
+                currentX = x;
+                currentY = y;
+                
+                return;
+            }
+        }
+    }
+    
+    public void setSelected() {
+//        if (game.board.getBlockType(currentY, currentX) != null) {
+            if (game.board.getBlockType(currentY, currentX).equals(BlockType.BLUE_OCCUPIED) || game.board.getBlockType(currentY, currentX).equals(BlockType.RED_OCCUPIED)) {
+                selected = true;
+                selectedX = currentX;
+                selectedY = currentY;
+            }
+//        } else {
+//            selected = false;
+//        }
+    }
+    
+//    public void setSelected(java.awt.event.ActionEvent e) {
+//        for (int x = 0; x < boardSize; ++x) {
+//            for (int y = 0; y < boardSize; ++y) {
+//                if (e.getSource() == game.btns[y][x]) {
+//                    if (game.board.getBlockType(y, x).equals(BlockType.BLUE_OCCUPIED) || game.board.getBlockType(y, x).equals(BlockType.RED_OCCUPIED)) {
+//                        selected = true;
+//                        selectedX = x;
+//                        selectedY = y;
+//                        System.out.println("HERE " + selectedX + " " + selectedY);
+//                        System.out.println("HERE " + x + " " + y);
+//                        return;
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gamePanel;
