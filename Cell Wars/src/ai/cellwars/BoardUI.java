@@ -176,7 +176,10 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         setCurrent(e);
        
         if (selected) {
-            moveCell(selectedX, selectedY, currentX, currentY);
+            if (!moveCell(selectedX, selectedY, currentX, currentY)) {
+                selected = false;
+                setSelected();
+            }
         } else {
             setSelected();
         }
@@ -220,9 +223,9 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         }
     }
     
-    public void moveCell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
+    public boolean moveCell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
         if (!validMove(startY, startX, stopY, stopX)) {
-            return;
+            return false;
         }
 
         if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
@@ -293,6 +296,8 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         } else {
             game.currentPlayer = game.bluePlayer;
         }
+        
+        return true;
     }
     
     public boolean validMove(Integer startY, Integer startX, Integer stopY, Integer stopX) {
@@ -310,9 +315,10 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         while (iterator.hasNext()) {
             current = iterator.next();
             
-            if (current.positionX == startX && current.positionY == startY) {
+            if (current.positionX == stopX && current.positionY == stopY) {
+                return false;
+            } else if (current.positionX == startX && current.positionY == startY) {
                 moveCount = current.moveCount;
-                break;
             }
         }
         
