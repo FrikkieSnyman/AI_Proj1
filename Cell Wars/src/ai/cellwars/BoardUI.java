@@ -160,7 +160,6 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             for (int y = 0; y < boardSize; ++y) {
                 btns[y][x] = new javax.swing.JButton(y + "_" + x);
                 btns[y][x].setText("");
-//                btns[y][x].setFocusable(false);
                 btns[y][x].addActionListener(this);
 
                 gamePanel.add(btns[y][x]);
@@ -174,21 +173,13 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
      * @param e 
      */
     public void actionPerformed(java.awt.event.ActionEvent e) {
-       setCurrent(e);
+        setCurrent(e);
        
-       if (selected) {
-           moveCell(selectedX, selectedY, currentX, currentY);
-       } else {
-        setSelected();
-
-//        if (selected) {
-//            game.btns[selectedY][selectedX].setBackground(java.awt.Color.yellow);
-//        } else {
-//            if (selectedX != -1) {
-//                game.btns[selectedY][selectedX].setBackground(java.awt.Color.gray);
-//            }
-//        }
-       }
+        if (selected) {
+            moveCell(selectedX, selectedY, currentX, currentY);
+        } else {
+            setSelected();
+        }
     }
     /**
      * 
@@ -210,12 +201,22 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
      * 
      */
     public void setSelected() {
-        if (game.board.getBlockType(currentY, currentX).equals(BlockType.BLUE_OCCUPIED) || game.board.getBlockType(currentY, currentX).equals(BlockType.RED_OCCUPIED)) {
-            selected = true;
-            selectedX = currentX;
-            selectedY = currentY;
+        if (game.currentPlayer == game.bluePlayer) {
+            if (game.board.getBlockType(currentY, currentX).equals(BlockType.BLUE_OCCUPIED)) {
+                selected = true;
+                selectedX = currentX;
+                selectedY = currentY;
+            } else {
+                selected = false;
+            }
         } else {
-            selected = false;
+            if (game.board.getBlockType(currentY, currentX).equals(BlockType.RED_OCCUPIED)) {
+                selected = true;
+                selectedX = currentX;
+                selectedY = currentY;
+            } else {
+                selected = false;
+            }
         }
     }
     
@@ -223,7 +224,7 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         if (!validMove(startY, startX, stopY, stopX)) {
             return;
         }
-//        System.out.println(startX + " " + startY + " " + stopX + " " + stopY);
+
         if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
             game.board.blockType[stopX][stopY] = BlockType.BLUE_OCCUPIED;
             game.board.blockType[startX][startY] = BlockType.EMPTY;
@@ -272,7 +273,26 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
 //        System.out.println(game.allCells.get(0).getPosition()[1]);
 //        System.out.println(game.board.cellList.get(0).getPosition()[1]);
         
+        //Redraw the board
         game.redrawBoard();
+        
+        //Check for win condition
+        if (game.currentPlayer == game.bluePlayer) {
+            if (game.redPlayer.cellList.size() == 0) {
+                System.out.println("Blue Player won");
+            }
+        } else {
+            if (game.bluePlayer.cellList.size() == 0) {
+                System.out.println("Red Player won");
+            }
+        }
+        
+        //Swap over current player
+        if (game.currentPlayer == game.bluePlayer) {
+            game.currentPlayer = game.redPlayer;
+        } else {
+            game.currentPlayer = game.bluePlayer;
+        }
     }
     
     public boolean validMove(Integer startY, Integer startX, Integer stopY, Integer stopX) {

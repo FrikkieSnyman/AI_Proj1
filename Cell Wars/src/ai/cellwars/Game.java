@@ -23,6 +23,7 @@ public class Game {
     Integer players; //2 = PvP; 1 = PvAI; 0 = AIvAI
     Player redPlayer = null;
     Player bluePlayer = null;
+    Player currentPlayer = null;
     Board board = null;
     // javax.swing.JTable table = null;
     javax.swing.JPanel gamePanel = null;
@@ -39,13 +40,16 @@ public class Game {
         this.cellsPerPlayer = cellsPerPlayer;
         this.players = players;
 
-        btns = new javax.swing.JButton[boardSize][boardSize];
+//        btns = new javax.swing.JButton[boardSize][boardSize];
         
         bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize); 
         allCells.addAll(bluePlayer.getCellList());
         redPlayer = new Player(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize);
         allCells.addAll(redPlayer.getCellList());
         board = new Board(boardSize, allCells, this);
+        
+        //Start current player as blue
+        currentPlayer = bluePlayer;
 
         gamePanel = board.getPanel();
         gamePanel.setLayout(new java.awt.GridLayout(boardSize, boardSize));
@@ -74,7 +78,6 @@ public class Game {
 //        gamePanel.setLayout(new java.awt.GridLayout(boardSize, boardSize));
         if (!boardCreated){
             btns = board.boardUI.createBTNS(boardSize);
-            boardCreated = true;
         }
 
         //Set cells to correct color
@@ -94,12 +97,28 @@ public class Game {
             }
         }
 
+
         //Set cell influence to correct color
         //if currentplayer = red
             board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
         // else
             board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
         
+
+        //Set cell influence to correct color depending on current player
+        if (!boardCreated) {
+            board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+            board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+            boardCreated = true;
+        } else {
+            System.out.println("Here here here");
+            if (currentPlayer == redPlayer) {
+                board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+            } else {
+                board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+            }
+        }
+
         
         BlockType[][] bt = board.getBoard();
         
