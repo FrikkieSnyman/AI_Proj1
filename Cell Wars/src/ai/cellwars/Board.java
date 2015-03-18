@@ -365,7 +365,7 @@ public class Board {
                 if (influenced.get(i).getOwner().color.compareTo("blue") == 0 ){
                     influenced.remove(i);
                 }
-            } else {
+            } else if (bt == BlockType.RED_INFLUENCED){
                 if (influenced.get(i).getOwner().color.compareTo("red") == 0 ){
                     influenced.remove(i);
                 }
