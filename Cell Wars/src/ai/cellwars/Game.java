@@ -83,7 +83,7 @@ public class Game {
         //Set cells to correct color
         for (int i = 0; i < allCells.size(); ++i) {
             Cell tmpCell = allCells.get(i);
-            System.out.println(tmpCell.positionX + " " + tmpCell.positionY + " " + tmpCell.color);
+//            System.out.println(tmpCell.positionX + " " + tmpCell.positionY + " " + tmpCell.color);
 
             if (tmpCell.getColor().compareTo("blue") == 0) {
                 board.setBlockType(BlockType.BLUE_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
@@ -111,7 +111,7 @@ public class Game {
             board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
             boardCreated = true;
         } else {
-            System.out.println("Here here here");
+//            System.out.println("Here here here");
             if (currentPlayer == redPlayer) {
                 board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
             } else {

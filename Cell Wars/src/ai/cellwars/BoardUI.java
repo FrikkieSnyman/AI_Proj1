@@ -316,7 +316,7 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             }
         }
         
-        System.out.println(moveCount);
+//        System.out.println(moveCount);
         
         if (startX == stopX) {
             if (Math.abs(startY - stopY) > moveCount) {
