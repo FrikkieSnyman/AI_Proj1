@@ -68,6 +68,10 @@ public class Game {
 //                gamePanel.add(btns[y][x]);
 //            }
 //        }
+//        board = new Board(boardSize, allCells, this);
+//
+//        gamePanel = board.getPanel();
+//        gamePanel.setLayout(new java.awt.GridLayout(boardSize, boardSize));
         if (!boardCreated){
             btns = board.boardUI.createBTNS(boardSize);
             boardCreated = true;
@@ -76,6 +80,7 @@ public class Game {
         //Set cells to correct color
         for (int i = 0; i < allCells.size(); ++i) {
             Cell tmpCell = allCells.get(i);
+            System.out.println(tmpCell.positionX + " " + tmpCell.positionY + " " + tmpCell.color);
 
             if (tmpCell.getColor().compareTo("blue") == 0) {
                 board.setBlockType(BlockType.BLUE_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
@@ -103,6 +108,8 @@ public class Game {
                     } else if (bt[i][j] == BlockType.BLUE_INFLUENCED){
                         btns[i][j].setBackground(new Color(169, 181, 232));
                     }
+                } else {
+                    btns[i][j].setBackground(new Color(0,0,0));
                 }
             }
         }

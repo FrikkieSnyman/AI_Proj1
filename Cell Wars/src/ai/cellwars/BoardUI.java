@@ -6,6 +6,7 @@
 package ai.cellwars;
 
 import java.awt.event.ActionListener;
+import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -179,13 +180,13 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
        } else {
         setSelected();
 
-        if (selected) {
-            game.btns[selectedY][selectedX].setBackground(java.awt.Color.yellow);
-        } else {
-            if (selectedX != -1) {
-                game.btns[selectedY][selectedX].setBackground(java.awt.Color.gray);
-            }
-        }
+//        if (selected) {
+//            game.btns[selectedY][selectedX].setBackground(java.awt.Color.yellow);
+//        } else {
+//            if (selectedX != -1) {
+//                game.btns[selectedY][selectedX].setBackground(java.awt.Color.gray);
+//            }
+//        }
        }
     }
     /**
@@ -217,20 +218,22 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         }
     }
     
-    public void moveCell(Integer startX, Integer startY, Integer stopX, Integer stopY) {
-        System.out.println("here");
-        if (game.board.blockType[startY][startX].equals(BlockType.BLUE_OCCUPIED)) {
-            game.board.blockType[stopY][stopX] = BlockType.BLUE_OCCUPIED;
-            game.board.blockType[startY][startX] = BlockType.EMPTY;
+    public void moveCell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
+//        System.out.println(startX + " " + startY + " " + stopX + " " + stopY);
+        if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
+            game.board.blockType[stopX][stopY] = BlockType.BLUE_OCCUPIED;
+            game.board.blockType[startX][startY] = BlockType.EMPTY;
+            
             for (int i = 0; i < game.bluePlayer.cellList.size(); ++i){
                 if (game.bluePlayer.cellList.get(i).positionX == startX && game.bluePlayer.cellList.get(i).positionY == startY){
                     game.bluePlayer.cellList.get(i).setPositionX(stopX);
                     game.bluePlayer.cellList.get(i).setPositionY(stopY);
+                    
                 }
             }
         } else {
-            game.board.blockType[stopY][stopX] = BlockType.RED_OCCUPIED;
-            game.board.blockType[startY][startX] = BlockType.EMPTY;
+            game.board.blockType[stopX][stopY] = BlockType.RED_OCCUPIED;
+            game.board.blockType[startX][startY] = BlockType.EMPTY;
             for (int i = 0; i < game.redPlayer.cellList.size(); ++i){
                 if (game.redPlayer.cellList.get(i).positionX == startX && game.redPlayer.cellList.get(i).positionY == startY){
                     game.redPlayer.cellList.get(i).setPositionX(stopX);
@@ -239,7 +242,7 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             }
         }
         
-        game.board.blockType[startY][startX] = BlockType.EMPTY;
+//        game.board.blockType[startY][startX] = BlockType.EMPTY;
         
         selected = false;
         selectedX = -1;
@@ -249,14 +252,14 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         * Recalculate influenced cells
         */
         for (int i = 0; i < game.allCells.size(); ++i){
-            if (game.allCells.get(i).positionX == startX && game.allCells.get(i).positionY == startY){
+            if (Objects.equals(game.allCells.get(i).positionX, startX) && Objects.equals(game.allCells.get(i).positionY, startY)){
                 game.allCells.get(i).setPositionX(stopX);
                 game.allCells.get(i).setPositionY(stopY);
             }
         }
         
         for (int i = 0; i < game.board.cellList.size(); ++i){
-            if (game.board.cellList.get(i).positionX == startX && game.board.cellList.get(i).positionY == startY){
+            if (Objects.equals(game.board.cellList.get(i).positionX, startX) && Objects.equals(game.board.cellList.get(i).positionY, startY)){
                 game.board.cellList.get(i).setPositionX(stopX);
                 game.board.cellList.get(i).setPositionY(stopY);
             }

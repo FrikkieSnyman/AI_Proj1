@@ -85,8 +85,7 @@ public class Board {
         for (int i = 0; i < cellList.size(); ++i){
             Cell cell = cellList.get(i);
             cell.infList = new LinkedList<>();
-            influenced = new LinkedList<>();
-            clearInfluencedBlocks();
+            clearInfluencedBlocks(bt);
             Integer x = cellList.get(i).positionX;
             Integer y = cellList.get(i).positionY;
             
@@ -394,10 +393,22 @@ public class Board {
         }        
     }
 
-    private void clearInfluencedBlocks() {
+    private void clearInfluencedBlocks(BlockType bt) {
+        for (int i = 0; i < influenced.size(); ++i){
+            if (bt == BlockType.BLUE_INFLUENCED){
+                if (influenced.get(i).getOwner().color.compareTo("blue") == 0 ){
+                    influenced.remove(i);
+                }
+            } else {
+                if (influenced.get(i).getOwner().color.compareTo("red") == 0 ){
+                    influenced.remove(i);
+                }
+            }
+        }
+        
         for (int i = 0; i < boardSize; ++i){
             for (int j = 0; j < boardSize; ++j){
-                if (blockType[i][j] == BlockType.BLUE_INFLUENCED || blockType[i][j] == BlockType.RED_INFLUENCED){
+                if (blockType[i][j] == bt){
                     blockType[i][j] = BlockType.EMPTY;
                 }
             }
