@@ -57,6 +57,9 @@ public class Game {
         // table = board.getTable();
         // board.setTable(board);
         drawCells();
+        
+//        initGUI();
+//        drawCellsV2();
     }
     /**
      * 
@@ -138,6 +141,87 @@ public class Game {
 
         //Redraw board
         gamePanel.validate();
+    }
+    
+    public void initGUI() {
+        //Create buttons for board
+        btns = board.boardUI.createBTNS(boardSize);
+        
+        //Place cells on the board
+        placeCells();
+        
+        //Determine cell influence for both players
+        board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+        board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+        
+        //Draw cells
+        drawCellsV2();
+        
+        //Show GUI
+        board.boardUI.setVisible(true);
+    }
+    
+    public void placeCells() {
+        //Set cells to correct color
+        for (int i = 0; i < allCells.size(); ++i) {
+            Cell tmpCell = allCells.get(i);
+//            System.out.println(tmpCell.positionX + " " + tmpCell.positionY + " " + tmpCell.color);
+
+            if (tmpCell.getColor().compareTo("blue") == 0) {
+                board.setBlockType(BlockType.BLUE_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
+//                btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.blue);
+//                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
+            }
+            else {
+                board.setBlockType(BlockType.RED_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
+//                btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.red);
+//                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
+            }
+        }
+    }
+    
+    public void drawCellsV2() {
+        for (int x = 0; x < boardSize; ++x) {
+            for (int y = 0; y < boardSize; ++y) {
+                switch (board.getBlockType(x, y)) {
+                    case BLUE_OCCUPIED:
+                        btns[x][y].setBackground(Color.blue);
+                        break;
+                    case BLUE_INFLUENCED:
+                        btns[x][y].setBackground(new Color(169, 181, 232));
+                        break;
+                    case RED_OCCUPIED:
+                        btns[x][y].setBackground(Color.red);
+                        break;
+                    case RED_INFLUENCED:
+                        btns[x][y].setBackground(new Color(232, 169, 169));
+                        break;
+                    case EMPTY:
+                        btns[x][y].setBackground(Color.black);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        //Redraw board
+        gamePanel.validate();
+    }
+    
+    public void drawBoard() {
+        //Place cells on the board
+        placeCells();
+        
+        //Determine cell influence based on the last move
+        if (currentPlayer == redPlayer) {
+            board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+        } else {
+            board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+        }
+        
+        //Redraw cells
+        drawCellsV2();
     }
     
     public void redrawBoard() {
