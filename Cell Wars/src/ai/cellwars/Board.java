@@ -33,7 +33,7 @@ public class Board {
         for (int i = 0; i < boardSize; ++i){
             Arrays.fill(blockType[i], BlockType.EMPTY);
         }
-        boardUI.setVisible(true);
+//        boardUI.setVisible(true);
         this.influenced = new LinkedList<>();
     }
     /**
@@ -258,7 +258,9 @@ public class Board {
                                 curList.add(yolo);
                                 temp.add(yolo);
                                 blockType[x-1][y] = occ;
-                                boardUI.game.drawCells();
+                                  
+                                boardUI.game.determineInfluence();
+//                                boardUI.game.drawCells();
                             }
                         }
                         

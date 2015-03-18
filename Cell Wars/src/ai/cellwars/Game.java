@@ -56,10 +56,10 @@ public class Game {
 
         // table = board.getTable();
         // board.setTable(board);
-        drawCells();
+//        drawCells();
         
-//        initGUI();
-//        drawCellsV2();
+        initGUI();
+        drawCellsV2();
     }
     /**
      * 
@@ -165,18 +165,22 @@ public class Game {
         //Set cells to correct color
         for (int i = 0; i < allCells.size(); ++i) {
             Cell tmpCell = allCells.get(i);
-//            System.out.println(tmpCell.positionX + " " + tmpCell.positionY + " " + tmpCell.color);
 
             if (tmpCell.getColor().compareTo("blue") == 0) {
                 board.setBlockType(BlockType.BLUE_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
-//                btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.blue);
-//                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
             }
             else {
                 board.setBlockType(BlockType.RED_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
-//                btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.red);
-//                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
             }
+        }
+    }
+    
+    public void determineInfluence() {
+        //Determine cell influence based on the last move
+        if (currentPlayer == redPlayer) {
+            board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+        } else {
+            board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
         }
     }
     
@@ -210,17 +214,10 @@ public class Game {
     }
     
     public void drawBoard() {
-        //Place cells on the board
-        placeCells();
+//        placeCells();
         
-        //Determine cell influence based on the last move
-        if (currentPlayer == redPlayer) {
-            board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
-        } else {
-            board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
-        }
+        determineInfluence();
         
-        //Redraw cells
         drawCellsV2();
     }
     

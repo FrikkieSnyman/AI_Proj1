@@ -179,6 +179,16 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             if (!moveCell(selectedX, selectedY, currentX, currentY)) {
                 selected = false;
                 setSelected();
+            } else {
+                //Redraw the board if successful move
+                game.drawBoard();
+                
+                //Swap over current player
+                if (game.currentPlayer == game.bluePlayer) {
+                    game.currentPlayer = game.redPlayer;
+                } else {
+                    game.currentPlayer = game.bluePlayer;
+                }
             }
         } else {
             setSelected();
@@ -236,7 +246,6 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
                 if (game.bluePlayer.cellList.get(i).positionX == startX && game.bluePlayer.cellList.get(i).positionY == startY){
                     game.bluePlayer.cellList.get(i).setPositionX(stopX);
                     game.bluePlayer.cellList.get(i).setPositionY(stopY);
-                    
                 }
             }
         } else {
@@ -277,7 +286,7 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
 //        System.out.println(game.board.cellList.get(0).getPosition()[1]);
         
         //Redraw the board
-        game.redrawBoard();
+//        game.redrawBoard();
         
         //Check for win condition
         if (game.currentPlayer == game.bluePlayer) {
@@ -288,13 +297,6 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             if (game.bluePlayer.cellList.size() == 0) {
                 System.out.println("Red Player won");
             }
-        }
-        
-        //Swap over current player
-        if (game.currentPlayer == game.bluePlayer) {
-            game.currentPlayer = game.redPlayer;
-        } else {
-            game.currentPlayer = game.bluePlayer;
         }
         
         return true;
