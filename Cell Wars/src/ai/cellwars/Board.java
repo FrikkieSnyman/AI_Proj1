@@ -82,9 +82,11 @@ public class Board {
      * @param cellList 
      */
     public void determineInfluenced(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
-
         for (int i = 0; i < cellList.size(); ++i){
             Cell cell = cellList.get(i);
+            cell.infList = new LinkedList<>();
+            influenced = new LinkedList<>();
+            clearInfluencedBlocks();
             Integer x = cellList.get(i).positionX;
             Integer y = cellList.get(i).positionY;
             
@@ -390,5 +392,15 @@ public class Board {
                 }
             }
         }        
+    }
+
+    private void clearInfluencedBlocks() {
+        for (int i = 0; i < boardSize; ++i){
+            for (int j = 0; j < boardSize; ++j){
+                if (blockType[i][j] == BlockType.BLUE_INFLUENCED || blockType[i][j] == BlockType.RED_INFLUENCED){
+                    blockType[i][j] = BlockType.EMPTY;
+                }
+            }
+        }
     }
 }

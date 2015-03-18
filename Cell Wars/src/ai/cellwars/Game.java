@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author frikkie
  */
 public class Game {
-    
+    Boolean boardCreated = false;
     Integer boardSize;
     Integer cellsPerPlayer;
     Integer players; //2 = PvP; 1 = PvAI; 0 = AIvAI
@@ -68,8 +68,10 @@ public class Game {
 //                gamePanel.add(btns[y][x]);
 //            }
 //        }
-        
-        btns = board.boardUI.createBTNS(boardSize);
+        if (!boardCreated){
+            btns = board.boardUI.createBTNS(boardSize);
+            boardCreated = true;
+        }
 
         //Set cells to correct color
         for (int i = 0; i < allCells.size(); ++i) {
@@ -110,6 +112,9 @@ public class Game {
     }
     
     public void redrawBoard() {
-
+        /**
+         * 
+         */
+        drawCells();
     }
 }

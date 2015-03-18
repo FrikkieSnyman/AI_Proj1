@@ -228,7 +228,10 @@ public class UI extends javax.swing.JFrame {
     private void rbPvAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPvAIActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbPvAIActionPerformed
-
+    /**
+     * 
+     * @param evt 
+     */
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
         // TODO add your handling code here:
         Integer players;

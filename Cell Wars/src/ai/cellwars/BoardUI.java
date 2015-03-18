@@ -218,10 +218,25 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
     }
     
     public void moveCell(Integer startX, Integer startY, Integer stopX, Integer stopY) {
+        System.out.println("here");
         if (game.board.blockType[startY][startX].equals(BlockType.BLUE_OCCUPIED)) {
             game.board.blockType[stopY][stopX] = BlockType.BLUE_OCCUPIED;
+            game.board.blockType[startY][startX] = BlockType.EMPTY;
+            for (int i = 0; i < game.bluePlayer.cellList.size(); ++i){
+                if (game.bluePlayer.cellList.get(i).positionX == startX && game.bluePlayer.cellList.get(i).positionY == startY){
+                    game.bluePlayer.cellList.get(i).setPositionX(stopX);
+                    game.bluePlayer.cellList.get(i).setPositionY(stopY);
+                }
+            }
         } else {
             game.board.blockType[stopY][stopX] = BlockType.RED_OCCUPIED;
+            game.board.blockType[startY][startX] = BlockType.EMPTY;
+            for (int i = 0; i < game.redPlayer.cellList.size(); ++i){
+                if (game.redPlayer.cellList.get(i).positionX == startX && game.redPlayer.cellList.get(i).positionY == startY){
+                    game.redPlayer.cellList.get(i).setPositionX(stopX);
+                    game.redPlayer.cellList.get(i).setPositionY(stopY);
+                }
+            }
         }
         
         game.board.blockType[startY][startX] = BlockType.EMPTY;
@@ -229,6 +244,23 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         selected = false;
         selectedX = -1;
         selectedY = -1;
+        /*
+        * UpdateCellList with new position of selected cell in all celllists
+        * Recalculate influenced cells
+        */
+        for (int i = 0; i < game.allCells.size(); ++i){
+            if (game.allCells.get(i).positionX == startX && game.allCells.get(i).positionY == startY){
+                game.allCells.get(i).setPositionX(stopX);
+                game.allCells.get(i).setPositionY(stopY);
+            }
+        }
+        
+        for (int i = 0; i < game.board.cellList.size(); ++i){
+            if (game.board.cellList.get(i).positionX == startX && game.board.cellList.get(i).positionY == startY){
+                game.board.cellList.get(i).setPositionX(stopX);
+                game.board.cellList.get(i).setPositionY(stopY);
+            }
+        }
         
         game.redrawBoard();
     }
