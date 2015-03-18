@@ -5,6 +5,7 @@
  */
 package ai.cellwars;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -23,6 +24,9 @@ public class Board {
         this.cellList = cellList;
         boardUI = new BoardUI(boardSize);
         blockType = new BlockType[boardSize][boardSize];
+        for (int i = 0; i < boardSize; ++i){
+            Arrays.fill(blockType[i], BlockType.EMPTY);
+        }
         boardUI.setVisible(true);
         this.influenced = new LinkedList<>();
     }
@@ -59,7 +63,6 @@ public class Board {
             Integer y = cellList.get(i).positionY;
             
             if (blockType[x][y] == occ){
-                System.out.println("here");
                 if ((y+1) < boardSize){
                     if (blockType[x][y+1] != occ){
                         blockType[x][y+1] = bt;
