@@ -161,54 +161,59 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
     public void actionPerformed(java.awt.event.ActionEvent e) {
        setCurrent(e);
        
-       setSelected();
-       
-       System.out.println("Selected: " + selected);
-
        if (selected) {
-           game.btns[selectedY][selectedX].setBackground(java.awt.Color.yellow);
+           moveCell(selectedX, selectedY, currentX, currentY);
+       } else {
+        setSelected();
+
+        if (selected) {
+            game.btns[selectedY][selectedX].setBackground(java.awt.Color.yellow);
+        } else {
+            if (selectedX != -1) {
+                game.btns[selectedY][selectedX].setBackground(java.awt.Color.gray);
+            }
+        }
        }
     }
     
     public void setCurrent(java.awt.event.ActionEvent e) {
         for (int x = 0; x < boardSize; ++x) {
             for (int y = 0; y < boardSize; ++y) {
-                currentX = x;
-                currentY = y;
-                
-                return;
+                if (e.getSource() == game.btns[y][x]) {
+                    currentX = x;
+                    currentY = y;
+
+                    return;
+                }
             }
         }
     }
     
     public void setSelected() {
-//        if (game.board.getBlockType(currentY, currentX) != null) {
-            if (game.board.getBlockType(currentY, currentX).equals(BlockType.BLUE_OCCUPIED) || game.board.getBlockType(currentY, currentX).equals(BlockType.RED_OCCUPIED)) {
-                selected = true;
-                selectedX = currentX;
-                selectedY = currentY;
-            }
-//        } else {
-//            selected = false;
-//        }
+        if (game.board.getBlockType(currentY, currentX).equals(BlockType.BLUE_OCCUPIED) || game.board.getBlockType(currentY, currentX).equals(BlockType.RED_OCCUPIED)) {
+            selected = true;
+            selectedX = currentX;
+            selectedY = currentY;
+        } else {
+            selected = false;
+        }
     }
     
-//    public void setSelected(java.awt.event.ActionEvent e) {
-//        for (int x = 0; x < boardSize; ++x) {
-//            for (int y = 0; y < boardSize; ++y) {
-//                if (e.getSource() == game.btns[y][x]) {
-//                    if (game.board.getBlockType(y, x).equals(BlockType.BLUE_OCCUPIED) || game.board.getBlockType(y, x).equals(BlockType.RED_OCCUPIED)) {
-//                        selected = true;
-//                        selectedX = x;
-//                        selectedY = y;
-//                        System.out.println("HERE " + selectedX + " " + selectedY);
-//                        System.out.println("HERE " + x + " " + y);
-//                        return;
-//                    }
-//                }
-//            }
-//        }
-//    }
+    public void moveCell(Integer startX, Integer startY, Integer stopX, Integer stopY) {
+        if (game.board.blockType[startY][startX].equals(BlockType.BLUE_OCCUPIED)) {
+            game.board.blockType[stopY][stopX] = BlockType.BLUE_OCCUPIED;
+        } else {
+            game.board.blockType[stopY][stopX] = BlockType.RED_OCCUPIED;
+        }
+        
+        game.board.blockType[startY][startX] = BlockType.EMPTY;
+        
+        selected = false;
+        selectedX = -1;
+        selectedY = -1;
+        
+        game.redrawBoard();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gamePanel;

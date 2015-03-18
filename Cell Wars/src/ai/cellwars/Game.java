@@ -102,13 +102,7 @@ public class Game {
         gamePanel.validate();
     }
     
-    public boolean contains(java.awt.event.ActionEvent e) {
-        return true;
-    }
-    
-    public void test() {
-        btns[0][0].setBackground(Color.yellow);
+    public void redrawBoard() {
         
-        gamePanel.validate();
     }
 }
