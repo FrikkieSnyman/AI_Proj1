@@ -153,6 +153,10 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
      * @return 
      */
     public javax.swing.JButton[][] createBTNS(Integer boardSize) {
+        if (game.btns != null) {
+            return game.btns;
+        }
+        
         this.boardSize = boardSize;
         javax.swing.JButton[][] btns = new javax.swing.JButton[boardSize][boardSize];
         

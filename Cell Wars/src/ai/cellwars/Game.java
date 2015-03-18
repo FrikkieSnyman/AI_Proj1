@@ -40,7 +40,7 @@ public class Game {
         this.cellsPerPlayer = cellsPerPlayer;
         this.players = players;
 
-        btns = new javax.swing.JButton[boardSize][boardSize];
+//        btns = new javax.swing.JButton[boardSize][boardSize];
         
         bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize); 
         allCells.addAll(bluePlayer.getCellList());
