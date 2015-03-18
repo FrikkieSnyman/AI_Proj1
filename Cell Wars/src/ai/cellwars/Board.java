@@ -308,7 +308,7 @@ public class Board {
             maxX = 0;
             minY = boardSize;
             maxY = 0;
-            Cell tmp = local.remove();
+            Cell tmp = local.peek();
             
             for (int i = 0; i < tmp.infList.size(); ++i){
                 
@@ -348,15 +348,12 @@ public class Board {
                 for (int j = minY; j <= maxY; ++j){
                     if (blockType[i][j] != occ){
                         blockType[i][j] = bt;
-                        influenced.add(new Position(i,j,null));
+                        Position tmpPos = new Position(i,j,tmp);
+                        influenced.add(tmpPos);
                         for (int k = 0; k < local.size(); ++k){
-                            if (local.get(k) != null){
-                                local.get(k).infList.add(new Position(i,j,local.get(k)));
-                            }
+                            local.get(k).infList.add(tmpPos);
                         }
                     }
-                   
-                    System.out.println(blockType[i][j].name());
                     
                 }
             }
