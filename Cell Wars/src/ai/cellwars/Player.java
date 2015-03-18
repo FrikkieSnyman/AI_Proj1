@@ -39,7 +39,10 @@ public class Player {
     public LinkedList<Cell> getCellList(){
         return this.cellList;
     }
-    
+    /**
+     * 
+     * @param cellList 
+     */
     public void setCellList(LinkedList<Cell> cellList){
         this.cellList = cellList;
     }

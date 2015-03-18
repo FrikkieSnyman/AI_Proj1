@@ -54,11 +54,17 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
 //            tblBoard.setRowHeight(i,520/n);
 //        }
     }
-    
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JPanel getPanel(){
         return this.gamePanel;
     }
-    
+    /**
+     * 
+     * @param gameBoard 
+     */
     public void setBoard(Board gameBoard) {
         this.gameBoard = gameBoard;
     }
@@ -139,7 +145,11 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             }
         });
     }
-    
+    /**
+     * 
+     * @param boardSize
+     * @return 
+     */
     public javax.swing.JButton[][] createBTNS(Integer boardSize) {
         this.boardSize = boardSize;
         javax.swing.JButton[][] btns = new javax.swing.JButton[boardSize][boardSize];
@@ -157,7 +167,10 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         
         return btns;
     }
-    
+    /**
+     * 
+     * @param e 
+     */
     public void actionPerformed(java.awt.event.ActionEvent e) {
        setCurrent(e);
        
@@ -175,7 +188,10 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         }
        }
     }
-    
+    /**
+     * 
+     * @param e 
+     */
     public void setCurrent(java.awt.event.ActionEvent e) {
         for (int x = 0; x < boardSize; ++x) {
             for (int y = 0; y < boardSize; ++y) {
@@ -188,7 +204,9 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             }
         }
     }
-    
+    /**
+     * 
+     */
     public void setSelected() {
         if (game.board.getBlockType(currentY, currentX).equals(BlockType.BLUE_OCCUPIED) || game.board.getBlockType(currentY, currentX).equals(BlockType.RED_OCCUPIED)) {
             selected = true;

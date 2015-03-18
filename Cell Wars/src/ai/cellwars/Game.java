@@ -28,7 +28,12 @@ public class Game {
     javax.swing.JPanel gamePanel = null;
     LinkedList<Cell> allCells = new LinkedList<>();
     javax.swing.JButton[][] btns;
-    
+    /**
+     * 
+     * @param boardSize
+     * @param cellsPerPlayer
+     * @param players 
+     */
     public Game(Integer boardSize, Integer cellsPerPlayer, Integer players){
         this.boardSize = boardSize;
         this.cellsPerPlayer = cellsPerPlayer;
@@ -49,7 +54,9 @@ public class Game {
         // board.setTable(board);
         drawCells();
     }
-    
+    /**
+     * 
+     */
     public void drawCells(){
         //Create button grid
 //        for (int x = 0; x < boardSize; ++x) {
@@ -103,6 +110,6 @@ public class Game {
     }
     
     public void redrawBoard() {
-        
+
     }
 }
