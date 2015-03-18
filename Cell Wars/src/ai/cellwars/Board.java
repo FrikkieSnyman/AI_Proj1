@@ -19,10 +19,10 @@ public class Board {
     LinkedList<Cell> cellList = null;
     LinkedList<Position> influenced  = null;
     
-    public Board(Integer boardSize, LinkedList<Cell> cellList){
+    public Board(Integer boardSize, LinkedList<Cell> cellList, Game game){
         this.boardSize = boardSize;
         this.cellList = cellList;
-        boardUI = new BoardUI(boardSize);
+        boardUI = new BoardUI(boardSize, game);
         blockType = new BlockType[boardSize][boardSize];
         for (int i = 0; i < boardSize; ++i){
             Arrays.fill(blockType[i], BlockType.EMPTY);

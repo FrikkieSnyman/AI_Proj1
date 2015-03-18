@@ -40,7 +40,7 @@ public class Game {
         allCells.addAll(bluePlayer.getCellList());
         redPlayer = new Player(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize);
         allCells.addAll(redPlayer.getCellList());
-        board = new Board(boardSize, allCells);
+        board = new Board(boardSize, allCells, this);
 
         gamePanel = board.getPanel();
         gamePanel.setLayout(new java.awt.GridLayout(boardSize, boardSize));
@@ -52,15 +52,17 @@ public class Game {
     
     public void drawCells(){
         //Create button grid
-        for (int x = 0; x < boardSize; ++x) {
-            for (int y = 0; y < boardSize; ++y) {
-                btns[y][x] = new javax.swing.JButton(y + "_" + x);
-                btns[y][x].setText("");
-                btns[y][x].setFocusable(false);
-
-                gamePanel.add(btns[y][x]);
-            }
-        }
+//        for (int x = 0; x < boardSize; ++x) {
+//            for (int y = 0; y < boardSize; ++y) {
+//                btns[y][x] = new javax.swing.JButton(y + "_" + x);
+//                btns[y][x].setText("");
+//                btns[y][x].setFocusable(false);
+//
+//                gamePanel.add(btns[y][x]);
+//            }
+//        }
+        
+        btns = board.boardUI.createBTNS(boardSize);
 
         //Set cells to correct color
         for (int i = 0; i < allCells.size(); ++i) {
@@ -69,12 +71,12 @@ public class Game {
             if (tmpCell.getColor().compareTo("blue") == 0) {
                 board.setBlockType(BlockType.BLUE_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
                 btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.blue);
-                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
+//                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
             }
             else {
                 board.setBlockType(BlockType.RED_OCCUPIED,tmpCell.positionX,tmpCell.positionY);
                 btns[tmpCell.positionX][tmpCell.positionY].setBackground(Color.red);
-                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
+//                btns[tmpCell.positionX][tmpCell.positionY].setFocusable(true);
             }
         }
 
@@ -97,6 +99,16 @@ public class Game {
         }
 
         //Redraw board
+        gamePanel.validate();
+    }
+    
+    public boolean contains(java.awt.event.ActionEvent e) {
+        return true;
+    }
+    
+    public void test() {
+        btns[0][0].setBackground(Color.yellow);
+        
         gamePanel.validate();
     }
 }
