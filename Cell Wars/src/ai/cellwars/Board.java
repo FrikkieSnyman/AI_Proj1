@@ -7,6 +7,7 @@ package ai.cellwars;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  * 
@@ -203,6 +204,16 @@ public class Board {
     private void determineFullInfluence(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
         LinkedList<Cell> temp = new LinkedList<>();
         temp.addAll(cellList);
+        BlockType opp = null;
+        BlockType oppBt = null;
+        
+        if (occ == BlockType.BLUE_OCCUPIED){
+            opp = BlockType.RED_OCCUPIED;
+            oppBt = BlockType.RED_INFLUENCED;
+        } else {
+            opp = BlockType.BLUE_OCCUPIED;
+            oppBt = BlockType.BLUE_INFLUENCED;
+        }
         
         while(temp.size() > 0){
             Cell cell = temp.remove();
@@ -216,7 +227,7 @@ public class Board {
             for (int i = 0; i < cell.infList.size(); ++i){
                 Integer x = cell.infList.get(i).getX();
                 Integer y = cell.infList.get(i).getY();
-
+                
                 if ((x-1) >= 0){
                     if (blockType[x-1][y] == bt){
                         for (int k = 0; k < influenced.size(); ++k){
@@ -227,8 +238,34 @@ public class Board {
                                 temp.remove(influenced.get(k).getOwner());
                             }
                         }
-                    }                    
+                    } else if (blockType[x-1][y] == opp){
+                        // Cell takeover
+                        LinkedList<Cell> tmpList = null;
+                        LinkedList<Cell> curList = null;
+                        if (occ == BlockType.BLUE_OCCUPIED){
+                            tmpList = boardUI.game.redPlayer.cellList;
+                            curList = boardUI.game.bluePlayer.cellList;
+                        } else {
+                            tmpList = boardUI.game.bluePlayer.cellList;
+                            curList = boardUI.game.redPlayer.cellList;
+                        }
+                        
+                        for (int l = 0; l < tmpList.size(); ++l){
+                            if (tmpList.get(l).positionX == (x-1) && tmpList.get(l).positionY == y){
+                                Cell yolo = tmpList.remove(l);
+                                yolo.color = cell.color;
+                                yolo.infList = null;
+                                curList.add(yolo);
+                                temp.add(yolo);
+                                blockType[x-1][y] = occ;
+                                boardUI.game.drawCells();
+                            }
+                        }
+                        
+                    }
                 }
+                
+                
                 if ((x+1) < boardSize){
                     if (blockType[x+1][y] == bt){
                         for (int k = 0; k < influenced.size(); ++k){
