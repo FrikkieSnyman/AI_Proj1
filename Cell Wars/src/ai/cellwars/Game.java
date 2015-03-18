@@ -78,7 +78,6 @@ public class Game {
 //        gamePanel.setLayout(new java.awt.GridLayout(boardSize, boardSize));
         if (!boardCreated){
             btns = board.boardUI.createBTNS(boardSize);
-            boardCreated = true;
         }
 
         //Set cells to correct color
@@ -99,10 +98,17 @@ public class Game {
         }
 
         //Set cell influence to correct color depending on current player
-        if (currentPlayer == redPlayer) {
+        if (!boardCreated) {
             board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
-        } else {
             board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+            boardCreated = true;
+        } else {
+            System.out.println("Here here here");
+            if (currentPlayer == redPlayer) {
+                board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+            } else {
+                board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+            }
         }
         
         BlockType[][] bt = board.getBoard();

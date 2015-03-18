@@ -153,10 +153,6 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
      * @return 
      */
     public javax.swing.JButton[][] createBTNS(Integer boardSize) {
-        if (game.btns != null) {
-            return game.btns;
-        }
-        
         this.boardSize = boardSize;
         javax.swing.JButton[][] btns = new javax.swing.JButton[boardSize][boardSize];
         
@@ -228,7 +224,7 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         if (!validMove(startY, startX, stopY, stopX)) {
             return;
         }
-//        System.out.println(startX + " " + startY + " " + stopX + " " + stopY);
+
         if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
             game.board.blockType[stopX][stopY] = BlockType.BLUE_OCCUPIED;
             game.board.blockType[startX][startY] = BlockType.EMPTY;
