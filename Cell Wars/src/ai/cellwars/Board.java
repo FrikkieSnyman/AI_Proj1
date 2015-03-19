@@ -7,12 +7,15 @@ package ai.cellwars;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 
  * @author frikkie
  */
 public class Board {
+    private final ReentrantLock lock = new ReentrantLock();
+    
     Integer boardSize;
     BoardUI boardUI = null;
     BlockType[][] blockType = null;
@@ -102,130 +105,138 @@ public class Board {
      * @param cellList 
      */
     public void determineInfluenced(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
-        BlockType opp = null;
-        BlockType oppBt = null;
-        
-        if (occ == BlockType.BLUE_OCCUPIED){
-            opp = BlockType.RED_OCCUPIED;
-            oppBt = BlockType.RED_INFLUENCED;
-        } else {
-            opp = BlockType.BLUE_OCCUPIED;
-            oppBt = BlockType.BLUE_INFLUENCED;
+        if (boardUI.game.players == 0) {
+            lock.lock();
         }
         
-        
-        for (int i = 0; i < cellList.size(); ++i){
-            Cell cell = cellList.get(i);
-            cell.infList = new LinkedList<>();
-            clearInfluencedBlocks(bt);
-            Integer x = cellList.get(i).positionX;
-            Integer y = cellList.get(i).positionY;
-            
-            if (blockType[x][y] == occ){
-                if ((y+1) < boardSize){
-                    if (blockType[x][y+1] != occ && blockType[x][y+1] != opp){
-                        blockType[x][y+1] = bt;
-                        Position pos = new Position(x,y+1,cell);
-                        cell.infList.add(pos);
-                        influenced.add(pos);
-                    }
-                    if ((x+1) < boardSize){
-                        if (blockType[x+1][y+1] != occ && blockType[x+1][y+1] != opp){
-                            blockType[x+1][y+1] = bt;
-                            Position pos = new Position(x,y+1,cell);
-                            influenced.add(pos);
-                            cell.infList.add(pos);
-                        }
-                    }
-                    if((x-1) >= 0){
-                        if (blockType[x-1][y+1] != occ && blockType[x-1][y+1] != opp){
-                            blockType[x-1][y+1] = bt;
-                            Position pos = new Position(x-1,y+1,cell);
-                            influenced.add(pos);
-                            cell.infList.add(pos);
-                        }
-                    }
-                }
-                if((y-1) >= 0){
-                    if (blockType[x][y-1] != occ && blockType[x][y-1] != opp){
-                        blockType[x][y-1] = bt;
-                        Position pos = new Position(x,y-1,cell);
-                        influenced.add(pos);
-                        cell.infList.add(pos);
-                    }
-                    if ((x+1) < boardSize){
-                        if (blockType[x+1][y-1] != occ && blockType[x+1][y-1] != opp){
-                            blockType[x+1][y-1] = bt;
-                            Position pos = new Position(x+1,y-1,cell);
-                            influenced.add(pos);
-                            cell.infList.add(pos);
-                        }
-                    }
-                    if((x-1) >= 0){
-                        if (blockType[x-1][y-1] != occ && blockType[x-1][y-1] != opp){
-                            blockType[x-1][y-1] = bt;
-                            Position pos = new Position(x-1,y-1,cell);
-                            influenced.add(pos);
-                            cell.infList.add(pos);
-                        }
-                    }
-                }
-                if ((x+1) < boardSize){
-                    if (blockType[x+1][y] != occ && blockType[x+1][y] != opp){
-                        blockType[x+1][y] = bt;
-                        Position pos = new Position(x+1,y,cell);
-                        influenced.add(pos);
-                        cell.infList.add(pos);
-                    }
-                    if ((y+1) < boardSize){
-                        if (blockType[x+1][y+1] != occ && blockType[x+1][y+1] != opp){
-                            blockType[x+1][y+1] = bt;
-                            Position pos = new Position(x+1,y+1,cell);
-                            influenced.add(pos);
-                            cell.infList.add(pos);
-                        }
-                    }
-                    if((y-1) >= 0){
-                        if (blockType[x+1][y-1] != occ && blockType[x+1][y-1] != opp){
-                            blockType[x+1][y-1] = bt;
-                            Position pos = new Position(x+1,y-1,cell);
-                            influenced.add(pos);
-                            cell.infList.add(pos);
-                        }
-                    }
-                }
-                if ((x-1) >= 0){
-                    if (blockType[x-1][y] != occ && blockType[x-1][y] != opp){
-                        blockType[x-1][y] = bt;
-                        Position pos = new Position(x-1,y,cell);
-                        influenced.add(pos);
-                        cell.infList.add(pos);
-                    }
-                    if ((y+1) < boardSize){
-                        if (blockType[x-1][y+1] != occ && blockType[x-1][y+1] != opp){
-                            blockType[x-1][y+1] = bt;
-                            Position pos = new Position(x-1,y+1,cell);
-                            influenced.add(pos);
-                            cell.infList.add(pos);
-                        }
-                    }
-                    if((y-1) >= 0){
-                        if (blockType[x-1][y-1] != occ && blockType[x-1][y-1] != opp){
-                            blockType[x-1][y-1] = bt;
-                            Position pos = new Position(x-1,y-1,cell);
-                            influenced.add(pos);
-                            cell.infList.add(pos);
-                        }
-                    }
-                }
+        try {
+            BlockType opp = null;
+            BlockType oppBt = null;
+
+            if (occ == BlockType.BLUE_OCCUPIED){
+                opp = BlockType.RED_OCCUPIED;
+                oppBt = BlockType.RED_INFLUENCED;
+            } else {
+                opp = BlockType.BLUE_OCCUPIED;
+                oppBt = BlockType.BLUE_INFLUENCED;
             }
-            
-            
-        }
-        
-        determineFullInfluence(bt, occ, cellList);
-        
-        
+
+
+            for (int i = 0; i < cellList.size(); ++i){
+                Cell cell = cellList.get(i);
+                cell.infList = new LinkedList<>();
+                clearInfluencedBlocks(bt);
+                Integer x = cellList.get(i).positionX;
+                Integer y = cellList.get(i).positionY;
+
+                if (blockType[x][y] == occ){
+                    if ((y+1) < boardSize){
+                        if (blockType[x][y+1] != occ && blockType[x][y+1] != opp){
+                            blockType[x][y+1] = bt;
+                            Position pos = new Position(x,y+1,cell);
+                            cell.infList.add(pos);
+                            influenced.add(pos);
+                        }
+                        if ((x+1) < boardSize){
+                            if (blockType[x+1][y+1] != occ && blockType[x+1][y+1] != opp){
+                                blockType[x+1][y+1] = bt;
+                                Position pos = new Position(x,y+1,cell);
+                                influenced.add(pos);
+                                cell.infList.add(pos);
+                            }
+                        }
+                        if((x-1) >= 0){
+                            if (blockType[x-1][y+1] != occ && blockType[x-1][y+1] != opp){
+                                blockType[x-1][y+1] = bt;
+                                Position pos = new Position(x-1,y+1,cell);
+                                influenced.add(pos);
+                                cell.infList.add(pos);
+                            }
+                        }
+                    }
+                    if((y-1) >= 0){
+                        if (blockType[x][y-1] != occ && blockType[x][y-1] != opp){
+                            blockType[x][y-1] = bt;
+                            Position pos = new Position(x,y-1,cell);
+                            influenced.add(pos);
+                            cell.infList.add(pos);
+                        }
+                        if ((x+1) < boardSize){
+                            if (blockType[x+1][y-1] != occ && blockType[x+1][y-1] != opp){
+                                blockType[x+1][y-1] = bt;
+                                Position pos = new Position(x+1,y-1,cell);
+                                influenced.add(pos);
+                                cell.infList.add(pos);
+                            }
+                        }
+                        if((x-1) >= 0){
+                            if (blockType[x-1][y-1] != occ && blockType[x-1][y-1] != opp){
+                                blockType[x-1][y-1] = bt;
+                                Position pos = new Position(x-1,y-1,cell);
+                                influenced.add(pos);
+                                cell.infList.add(pos);
+                            }
+                        }
+                    }
+                    if ((x+1) < boardSize){
+                        if (blockType[x+1][y] != occ && blockType[x+1][y] != opp){
+                            blockType[x+1][y] = bt;
+                            Position pos = new Position(x+1,y,cell);
+                            influenced.add(pos);
+                            cell.infList.add(pos);
+                        }
+                        if ((y+1) < boardSize){
+                            if (blockType[x+1][y+1] != occ && blockType[x+1][y+1] != opp){
+                                blockType[x+1][y+1] = bt;
+                                Position pos = new Position(x+1,y+1,cell);
+                                influenced.add(pos);
+                                cell.infList.add(pos);
+                            }
+                        }
+                        if((y-1) >= 0){
+                            if (blockType[x+1][y-1] != occ && blockType[x+1][y-1] != opp){
+                                blockType[x+1][y-1] = bt;
+                                Position pos = new Position(x+1,y-1,cell);
+                                influenced.add(pos);
+                                cell.infList.add(pos);
+                            }
+                        }
+                    }
+                    if ((x-1) >= 0){
+                        if (blockType[x-1][y] != occ && blockType[x-1][y] != opp){
+                            blockType[x-1][y] = bt;
+                            Position pos = new Position(x-1,y,cell);
+                            influenced.add(pos);
+                            cell.infList.add(pos);
+                        }
+                        if ((y+1) < boardSize){
+                            if (blockType[x-1][y+1] != occ && blockType[x-1][y+1] != opp){
+                                blockType[x-1][y+1] = bt;
+                                Position pos = new Position(x-1,y+1,cell);
+                                influenced.add(pos);
+                                cell.infList.add(pos);
+                            }
+                        }
+                        if((y-1) >= 0){
+                            if (blockType[x-1][y-1] != occ && blockType[x-1][y-1] != opp){
+                                blockType[x-1][y-1] = bt;
+                                Position pos = new Position(x-1,y-1,cell);
+                                influenced.add(pos);
+                                cell.infList.add(pos);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+            determineFullInfluence(bt, occ, cellList);
+        } finally {
+            if (boardUI.game.players == 0) {
+                lock.unlock();
+            }
+        }   
     }
     /**
      * 
@@ -837,10 +848,12 @@ public class Board {
         for (int i = 0; i < influenced.size(); ++i){
             if (bt == BlockType.BLUE_INFLUENCED){
 //                if (influenced.get(i).getOwner().color.compareTo("blue") == 0 ){
+//                if (influenced.get(i) != null);
                     influenced.remove(i);
 //                }
             } else if (bt == BlockType.RED_INFLUENCED){
 //                if (influenced.get(i).getOwner().color.compareTo("red") == 0 ){
+//                if (influenced.get(i) != null);
                     influenced.remove(i);
 //                }
             }

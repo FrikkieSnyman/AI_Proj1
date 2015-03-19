@@ -259,6 +259,7 @@ public class Game {
         
         drawBoard();
         drawBoard();
+        drawBoard();
     }
     
     public void swapPlayers() {

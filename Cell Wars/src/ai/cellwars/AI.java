@@ -7,6 +7,7 @@ package ai.cellwars;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -16,6 +17,8 @@ import java.util.Random;
 public class AI extends Player{
     Game game = null;
     BlockType[][] saveState = null;
+    LinkedList<Cell> saveRed = null;
+    LinkedList<Cell> saveBlue = null;
     LinkedList<Move> moveList = null;
     
     /**
@@ -62,13 +65,16 @@ public class AI extends Player{
         
         
         Move currentMove = getBestMove();
+//        Move currentMove = randomMove();
         
         game.board.boardUI.moveAICell(currentMove.getStartY(), currentMove.getStartX(), currentMove.getStopY(), currentMove.getStopX());
-        
-        try {
-            Thread.sleep(0);
-        } catch (Exception e) {
-            
+         
+        if (game.players == 0) {
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
+
+            }
         }
     }
     
@@ -151,8 +157,11 @@ public class AI extends Player{
         Integer h = 0;
         
         saveState = game.board.cloneBoard();
+        saveRed = game.redPlayer.save();
+        saveBlue = game.bluePlayer.save();
         
         game.board.boardUI.moveAICell(move.getStartY(), move.getStartX(), move.getStopY(), move.getStopX());
+        moveCell(move.getStartY(), move.getStartX(), move.getStopY(), move.getStopX());
         
         if (game.currentPlayer == game.redPlayer) {
             h = game.redPlayer.cellList.size() - game.bluePlayer.cellList.size();
@@ -161,8 +170,47 @@ public class AI extends Player{
         }
         
         game.board.resetBoard(saveState);
+        game.redPlayer.load(saveRed);
+        game.bluePlayer.load(saveBlue);
         
         return h;
+//        return 1;
+    }
+    
+    public void moveCell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
+         if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
+            game.board.blockType[stopX][stopY] = BlockType.BLUE_OCCUPIED;
+            game.board.blockType[startX][startY] = BlockType.EMPTY;
+            
+            for (int i = 0; i < game.bluePlayer.cellList.size(); ++i){
+                if (game.bluePlayer.cellList.get(i).positionX == startX && game.bluePlayer.cellList.get(i).positionY == startY){
+                    game.bluePlayer.cellList.get(i).setPositionX(stopX);
+                    game.bluePlayer.cellList.get(i).setPositionY(stopY);
+                }
+            }
+        } else {
+            game.board.blockType[stopX][stopY] = BlockType.RED_OCCUPIED;
+            game.board.blockType[startX][startY] = BlockType.EMPTY;
+            for (int i = 0; i < game.redPlayer.cellList.size(); ++i){
+                if (game.redPlayer.cellList.get(i).positionX == startX && game.redPlayer.cellList.get(i).positionY == startY){
+                    game.redPlayer.cellList.get(i).setPositionX(stopX);
+                    game.redPlayer.cellList.get(i).setPositionY(stopY);
+                }
+            }
+        }
+         
+        /*
+        * UpdateCellList with new position of selected cell in all celllists
+        * Recalculate influenced cells
+        */
+        for (int i = 0; i < game.allCells.size(); ++i){
+            if (Objects.equals(game.allCells.get(i).positionX, startX) && Objects.equals(game.allCells.get(i).positionY, startY)){
+                game.allCells.get(i).setPositionX(stopX);
+                game.allCells.get(i).setPositionY(stopY);
+            }
+        }
+        
+        game.determineInfluence();
     }
     
     public Move getBestMove() {
@@ -186,9 +234,13 @@ public class AI extends Player{
         }
         
         if (changed) {
-            best = moveList.get(randomInteger(0, moveList.size() - 1));
+            best = randomMove();
         }
         
         return best;
+    }
+    
+    public Move randomMove() {
+        return moveList.get(randomInteger(0, moveList.size() - 1));
     }
 }

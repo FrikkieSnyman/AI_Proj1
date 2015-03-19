@@ -32,6 +32,14 @@ public class Player extends Thread{
         generateCells(fromX, fromY, toX, toY);
     }
     
+    public LinkedList<Cell> save() {
+        return (LinkedList<Cell>) cellList.clone();
+    }
+    
+    public void load(LinkedList<Cell> state) {
+        cellList = state;
+    }
+    
     /**
      * Get the cellList of the player
      * @return 
