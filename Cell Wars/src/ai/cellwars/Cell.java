@@ -17,11 +17,13 @@ public class Cell {
     Integer moveCount = 1;
     String color;
     LinkedList<Position> infList = null;
+    LinkedList<Cell> neighbours = new LinkedList<>();
     /**
      * 
      */
-    public Cell(){
-        
+    public Cell(String color){
+        this.infList = new LinkedList<>();
+        this.color = color;
     }
     /**
      * 
