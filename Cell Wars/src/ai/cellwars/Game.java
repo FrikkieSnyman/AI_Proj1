@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.util.LinkedList;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -16,6 +17,8 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author Frikkie and Andre
  */
 public class Game {
+    final ReentrantLock lock = new ReentrantLock();
+    
     Boolean boardCreated = false;
     Integer boardSize;
     Integer cellsPerPlayer;
@@ -85,6 +88,15 @@ public class Game {
         bluePlayer.start();
         redPlayer.start();
     }
+    
+    public LinkedList<Cell> save() {
+        return (LinkedList<Cell>) allCells.clone();
+    }
+    
+    public void load(LinkedList<Cell> state) {
+        allCells = state;
+    }
+    
     /**
      * Draw the cells and influenced blocks on board
      */
@@ -217,9 +229,25 @@ public class Game {
             
         }
     }
+<<<<<<< HEAD
     /**
      * Function to draw cells on board
      */
+=======
+    
+//    public void determineInfluenceAI(BlockType[][] boardState, LinkedList<Cell> redCells, LinkedList<Cell> blueCells) {
+//        //Determine cell influence based on the last move
+//        if (currentPlayer == redPlayer) {
+//            board.determineInfluenced(boardState, BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redCells);
+////            board.determineFullInfluenceV2(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+//        } else {
+//            board.determineInfluenced(boardState, BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, blueCells);
+////            board.determineFullInfluenceV2(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+//            
+//        }
+//    }
+    
+>>>>>>> 58f5db6827eb41c5b37c0a8a29348f05783457b6
     public void drawCellsV2() {
         for (int x = 0; x < boardSize; ++x) {
             for (int y = 0; y < boardSize; ++y) {
