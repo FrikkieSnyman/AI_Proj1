@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author frikkie
  */
 public class Board {
-    private final ReentrantLock lock = new ReentrantLock();
+//    private final ReentrantLock lock = new ReentrantLock();
     
     Integer boardSize;
     BoardUI boardUI = null;
@@ -105,11 +105,11 @@ public class Board {
      * @param cellList 
      */
     public void determineInfluenced(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
-        if (boardUI.game.players == 0) {
-            lock.lock();
-        }
+//        if (boardUI.game.players == 0) {
+//            lock.lock();
+//        }
         
-        try {
+//        try {
             BlockType opp = null;
             BlockType oppBt = null;
 
@@ -232,11 +232,11 @@ public class Board {
             }
 
             determineFullInfluence(bt, occ, cellList);
-        } finally {
-            if (boardUI.game.players == 0) {
-                lock.unlock();
-            }
-        }   
+//        } finally {
+//            if (boardUI.game.players == 0) {
+//                lock.unlock();
+//            }
+//        }   
     }
     /**
      * 
