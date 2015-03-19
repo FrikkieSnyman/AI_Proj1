@@ -288,19 +288,24 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         if (game.currentPlayer == game.bluePlayer) {
             if (game.redPlayer.cellList.size() == 0) {
                 System.out.println("Blue Player won");
+                game.gameOver = true;
             }
         } else {
             if (game.bluePlayer.cellList.size() == 0) {
                 System.out.println("Red Player won");
+                game.gameOver = true;
             }
         }
         
         //Swap over current player
-        if (game.currentPlayer == game.bluePlayer) {
-            game.currentPlayer = game.redPlayer;
-        } else {
-            game.currentPlayer = game.bluePlayer;
-        }
+        game.swapPlayers();
+//        if (game.currentPlayer == game.bluePlayer) {
+//            game.currentPlayer = game.redPlayer;
+//            game.gameOver = true;
+//        } else {
+//            game.currentPlayer = game.bluePlayer;
+//            game.gameOver = true;
+//        }
         
         return true;
     }
@@ -311,6 +316,12 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         } else if (startX != stopX && startY != stopY) {
             return false;
         }
+        
+//        if (stopX < 0 || stopX >= boardSize) {
+//            return false;
+//        } else if (stopY < 0 || stopY >= boardSize) {
+//            return false;
+//        }
         
         Integer moveCount = 0;
         
@@ -338,6 +349,65 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
                 return false;
             }
         }
+        
+        return true;
+    }
+    
+    public boolean moveAICell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
+        if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
+            game.board.blockType[stopX][stopY] = BlockType.BLUE_OCCUPIED;
+            game.board.blockType[startX][startY] = BlockType.EMPTY;
+            
+            for (int i = 0; i < game.bluePlayer.cellList.size(); ++i){
+                if (game.bluePlayer.cellList.get(i).positionX == startX && game.bluePlayer.cellList.get(i).positionY == startY){
+                    game.bluePlayer.cellList.get(i).setPositionX(stopX);
+                    game.bluePlayer.cellList.get(i).setPositionY(stopY);
+                }
+            }
+        } else {
+            game.board.blockType[stopX][stopY] = BlockType.RED_OCCUPIED;
+            game.board.blockType[startX][startY] = BlockType.EMPTY;
+            for (int i = 0; i < game.redPlayer.cellList.size(); ++i){
+                if (game.redPlayer.cellList.get(i).positionX == startX && game.redPlayer.cellList.get(i).positionY == startY){
+                    game.redPlayer.cellList.get(i).setPositionX(stopX);
+                    game.redPlayer.cellList.get(i).setPositionY(stopY);
+                }
+            }
+        }
+        
+        selected = false;
+        selectedX = -1;
+        selectedY = -1;
+        /*
+        * UpdateCellList with new position of selected cell in all celllists
+        * Recalculate influenced cells
+        */
+        for (int i = 0; i < game.allCells.size(); ++i){
+            if (Objects.equals(game.allCells.get(i).positionX, startX) && Objects.equals(game.allCells.get(i).positionY, startY)){
+                game.allCells.get(i).setPositionX(stopX);
+                game.allCells.get(i).setPositionY(stopY);
+            }
+        }
+        
+        //Redraw the board
+        game.redrawBoard();
+//        game.drawBoard();
+        
+        //Check for win condition
+        if (game.currentPlayer == game.bluePlayer) {
+            if (game.redPlayer.cellList.size() == 0) {
+                System.out.println("Blue Player won");
+                game.gameOver = true;
+            }
+        } else {
+            if (game.bluePlayer.cellList.size() == 0) {
+                System.out.println("Red Player won");
+                game.gameOver = true;
+            }
+        }
+        
+        //Swap over current player
+        game.swapPlayers();
         
         return true;
     }

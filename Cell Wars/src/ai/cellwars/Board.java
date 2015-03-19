@@ -192,7 +192,7 @@ public class Board {
             
         }
         
-//        determineFullInfluence(bt, occ, cellList);
+        determineFullInfluence(bt, occ, cellList);
         
         
     }

@@ -14,7 +14,7 @@ import java.util.Random;
  */
 
 // TODO implement strategy to determine which algorithm to use for movement
-public class Player {
+public class Player extends Thread{
     Integer cells;
     String color;
     LinkedList<Cell> cellList = new LinkedList<>();
@@ -77,7 +77,7 @@ public class Player {
      * @param max
      * @return 
      */
-    private int randomInteger(int min, int max){
+    protected int randomInteger(int min, int max){
         Random rand = new Random();
         int returnThis = rand.nextInt((max - min)) +min;
         return returnThis;

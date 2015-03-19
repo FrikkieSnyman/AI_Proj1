@@ -29,6 +29,9 @@ public class Game {
     javax.swing.JPanel gamePanel = null;
     LinkedList<Cell> allCells = new LinkedList<>();
     javax.swing.JButton[][] btns;
+    
+    Boolean gameOver = false;
+    
     /**
      * 
      * @param boardSize
@@ -42,11 +45,30 @@ public class Game {
 
 //        btns = new javax.swing.JButton[boardSize][boardSize];
         
-        bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize); 
-        allCells.addAll(bluePlayer.getCellList());
-        redPlayer = new Player(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize);
-        allCells.addAll(redPlayer.getCellList());
-        board = new Board(boardSize, allCells, this);
+        switch (players) {
+            case 0:
+                bluePlayer = new AI(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize, this); 
+                allCells.addAll(bluePlayer.getCellList());
+                redPlayer = new AI(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize, this);
+                allCells.addAll(redPlayer.getCellList());
+                board = new Board(boardSize, allCells, this);
+                break;
+            case 1:
+                bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize); 
+                allCells.addAll(bluePlayer.getCellList());
+                redPlayer = new AI(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize, this);
+                allCells.addAll(redPlayer.getCellList());
+                board = new Board(boardSize, allCells, this);
+                break;
+            case 2:
+                bluePlayer = new Player(cellsPerPlayer, "blue", 0, 0, boardSize/2 -1, boardSize); 
+                allCells.addAll(bluePlayer.getCellList());
+                redPlayer = new Player(cellsPerPlayer, "red", boardSize/2 +1, 0, boardSize, boardSize);
+                allCells.addAll(redPlayer.getCellList());
+                board = new Board(boardSize, allCells, this);
+                
+                break;
+        }
         
         //Start current player as blue
         currentPlayer = bluePlayer;
@@ -60,6 +82,9 @@ public class Game {
         
         initGUI();
         drawCellsV2();
+        
+        bluePlayer.start();
+        redPlayer.start();
     }
     /**
      * 
@@ -151,10 +176,10 @@ public class Game {
         placeCells();
         
         //Determine cell influence for both players
-//        board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
-//        board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
-        board.determineFullInfluenceV2(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
-        board.determineFullInfluenceV2(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+        board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+        board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+//        board.determineFullInfluenceV2(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+//        board.determineFullInfluenceV2(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
         //Draw cells
         drawCellsV2();
         
@@ -179,11 +204,11 @@ public class Game {
     public void determineInfluence() {
         //Determine cell influence based on the last move
         if (currentPlayer == redPlayer) {
-//            board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
-            board.determineFullInfluenceV2(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+            board.determineInfluenced(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
+//            board.determineFullInfluenceV2(BlockType.RED_INFLUENCED, BlockType.RED_OCCUPIED, redPlayer.getCellList());
         } else {
-//            board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
-            board.determineFullInfluenceV2(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+            board.determineInfluenced(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
+//            board.determineFullInfluenceV2(BlockType.BLUE_INFLUENCED, BlockType.BLUE_OCCUPIED, bluePlayer.getCellList());
             
         }
     }
@@ -234,5 +259,13 @@ public class Game {
         
         drawBoard();
         drawBoard();
+    }
+    
+    public void swapPlayers() {
+        if (currentPlayer == redPlayer) {
+            currentPlayer = bluePlayer;
+        } else {
+            currentPlayer = redPlayer;
+        }
     }
 }
