@@ -62,6 +62,13 @@ public class AI extends Player{
         
         game.board.boardUI.moveAICell(currentMove.getStartY(), currentMove.getStartX(), currentMove.getStopY(), currentMove.getStopX());
         
+        try {
+            Thread.sleep(200);
+        } catch (Exception e) {
+            
+        }
+        
+        
 //        game.swapPlayers();
     }
     
@@ -69,38 +76,28 @@ public class AI extends Player{
         Move tempMove = null;
         
         tempMove = new Move(c.positionX, c.positionX + 1, c.positionY, c.positionY);
-//        System.out.println(tempMove.startX + " " + tempMove.stopX + " " + tempMove.startY + " " + tempMove.stopY);
         
         if (validMove(tempMove.getStartY(), tempMove.getStartX(), tempMove.getStopY(), tempMove.getStopX())) {
-//            System.out.println("The move aboive is valid");
             moveList.add(tempMove);
         }
         
         tempMove = new Move(c.positionX, c.positionX - 1, c.positionY, c.positionY);
-//        System.out.println(tempMove.startX + " " + tempMove.stopX + " " + tempMove.startY + " " + tempMove.stopY);
         
         if (validMove(tempMove.getStartY(), tempMove.getStartX(), tempMove.getStopY(), tempMove.getStopX())) {
-//            System.out.println("The move aboive is valid");
             moveList.add(tempMove);
         }
         
         tempMove = new Move(c.positionX, c.positionX, c.positionY, c.positionY + 1);
-//        System.out.println(tempMove.startX + " " + tempMove.stopX + " " + tempMove.startY + " " + tempMove.stopY);
         
         if (validMove(tempMove.getStartY(), tempMove.getStartX(), tempMove.getStopY(), tempMove.getStopX())) {
-//            System.out.println("The move aboive is valid");
             moveList.add(tempMove);
         }
         
         tempMove = new Move(c.positionX, c.positionX, c.positionY, c.positionY - 1);
-//        System.out.println(tempMove.startX + " " + tempMove.stopX + " " + tempMove.startY + " " + tempMove.stopY);
         
         if (validMove(tempMove.getStartY(), tempMove.getStartX(), tempMove.getStopY(), tempMove.getStopX())) {
-//            System.out.println("The move aboive is valid");
             moveList.add(tempMove);
         }
-        
-//        System.out.println(moveList.toString());
     }
     
     public boolean validMove(Integer startY, Integer startX, Integer stopY, Integer stopX) {
