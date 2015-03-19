@@ -86,6 +86,15 @@ public class Game {
         bluePlayer.start();
         redPlayer.start();
     }
+    
+    public LinkedList<Cell> save() {
+        return (LinkedList<Cell>) allCells.clone();
+    }
+    
+    public void load(LinkedList<Cell> state) {
+        allCells = state;
+    }
+    
     /**
      * 
      */

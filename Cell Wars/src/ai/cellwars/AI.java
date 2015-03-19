@@ -19,6 +19,7 @@ public class AI extends Player{
     BlockType[][] saveState = null;
     LinkedList<Cell> saveRed = null;
     LinkedList<Cell> saveBlue = null;
+    LinkedList<Cell> saveGame = null;
     LinkedList<Move> moveList = null;
     
     /**
@@ -159,6 +160,7 @@ public class AI extends Player{
         saveState = game.board.cloneBoard();
         saveRed = game.redPlayer.save();
         saveBlue = game.bluePlayer.save();
+        saveGame = game.save();
         
         game.board.boardUI.moveAICell(move.getStartY(), move.getStartX(), move.getStopY(), move.getStopX());
         moveCell(move.getStartY(), move.getStartX(), move.getStopY(), move.getStopX());
@@ -172,6 +174,7 @@ public class AI extends Player{
         game.board.resetBoard(saveState);
         game.redPlayer.load(saveRed);
         game.bluePlayer.load(saveBlue);
+        game.load(saveGame);
         
         return h;
 //        return 1;
