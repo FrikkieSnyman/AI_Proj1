@@ -1,22 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 13028741
  */
 package ai.cellwars;
 
 /**
- *
- * @author frikkie
+ * Class to represent a position on the board
+ * @author Frikkie and Andre
  */
 public class Position {
         Integer x,y;
         Cell ownedByCell;
         /**
-         * 
-         * @param x
-         * @param y
-         * @param cell 
+         * Constructor of position
+         * @param x At this x
+         * @param y At this y
+         * @param cell For this cell
          */
         public Position(Integer x, Integer y, Cell cell){
             this.x = x;
@@ -24,52 +23,52 @@ public class Position {
             this.ownedByCell = cell;
         }
         /**
-         * 
-         * @return 
+         * Retrieve y position
+         * @return Integer current y
          */
         public Integer getY(){
             return y;
         }
         /**
-         * 
-         * @return 
+         * Retrieve x position
+         * @return Integer current x
          */
         public Integer getX(){
             return x;
         }
         /**
-         * 
-         * @param y 
+         * Set y position
+         * @param y To this y
          */
         public void setY(Integer y){
             this.y = y;
         }
         /**
-         * 
-         * @param x 
+         * Set x position
+         * @param x To this x
          */
         public void setX(Integer x){
             this.x = x;
         }
         /**
-         * 
-         * @return 
+         * Retrieve owner of position
+         * @return Cell owner
          */
         public Cell getOwner(){
             return ownedByCell;
         }
         /**
-         * 
-         * @param cell 
+         * Set owner of position
+         * @param cell To this cell
          */
         public void setOwner(Cell cell){
             ownedByCell = cell;
         }
         /**
-         * 
-         * @param x
-         * @param y
-         * @return 
+         * Check if this is the position
+         * @param x This x
+         * @param y This y
+         * @return boolean true if match, else false
          */
         public Boolean isCoord(int x, int y){
             if (this.x == x && this.y == y){

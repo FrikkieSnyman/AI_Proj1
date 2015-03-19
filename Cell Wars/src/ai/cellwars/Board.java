@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 13028741
  */
 package ai.cellwars;
 
@@ -9,9 +8,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * 
- * @author frikkie
+/** 
+ * Class to represent the board matrix being played on
+ * @author Frikkie and Andre
  */
 public class Board {
     private final ReentrantLock lock = new ReentrantLock();
@@ -22,11 +21,11 @@ public class Board {
     LinkedList<Cell> cellList = null;
     LinkedList<Position> influenced  = null;
   /**
-   * 
-   * @param boardSize
-   * @param cellList
-   * @param game 
-   */  
+   * Constructor of Board
+   * @param boardSize Size of the square board matrix
+   * @param cellList List of generated cells
+   * @param game Reference to the game
+   */
     public Board(Integer boardSize, LinkedList<Cell> cellList, Game game){
         this.boardSize = boardSize;
         this.cellList = cellList;
@@ -38,7 +37,10 @@ public class Board {
 //        boardUI.setVisible(true);
         this.influenced = new LinkedList<>();
     }
-    
+    /**
+     * Function to make a deep copy of the board.
+     * @return BlockType[][]
+     */
     public BlockType[][] cloneBoard() {
         BlockType[][] temp = new BlockType[boardSize][boardSize];
         
@@ -50,7 +52,10 @@ public class Board {
             
         return temp;
     }
-    
+    /**
+     * Sets board to give parameter
+     * @param bt Sets board to this
+     */
     public void resetBoard(BlockType[][] bt) {
         for (int i = 0; i < boardSize; ++i) {
             for (int j = 0; j < boardSize; ++j) {
@@ -59,50 +64,49 @@ public class Board {
         }
     }
     /**
-     * 
-     * @return 
+     * Returns the current board
+     * @return BlockType[][]
      */
     public BlockType[][] getBoard(){
         return this.blockType;
     }
     /**
-     * 
-     * @param bt
-     * @param x
-     * @param y 
+     * Set the blocktype at position x and y
+     * @param bt Set to this blocktype
+     * @param x Set at this x position
+     * @param y Set at this y position
      */
     public void setBlockType(BlockType bt, int x, int y){
         this.blockType[x][y] = bt;
     }
     /**
-     * 
-     * @param x
-     * @param y
-     * @return 
+     * Function to retrieve blocktype at position
+     * @param x Retrieve from this x
+     * @param y Retrieve from this y
+     * @return BlockType
      */
     public BlockType getBlockType(int x, int y){
         return blockType[x][y];
     }
     /**
-     * 
-     * @return 
+     * Function to get that panel for GUI purposes
+     * @return javax.swing.JPanel
      */
     public javax.swing.JPanel getPanel(){
         return boardUI.getPanel();
     }
     /**
-     * 
-     * @param gameBoard 
+     * Function to set the board ui
+     * @param gameBoard Set to this Board
      */
     public void setTable(Board gameBoard){
         boardUI.setBoard(gameBoard);
     }
-    
     /**
-     * 
-     * @param bt
-     * @param occ
-     * @param cellList 
+     * Determines the influenced blocks for each cell
+     * @param bt Influenced type to check
+     * @param occ Cell type to check
+     * @param cellList List of cells to check
      */
     public void determineInfluenced(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
         if (boardUI.game.players == 0) {
@@ -239,10 +243,10 @@ public class Board {
         }   
     }
     /**
-     * 
-     * @param bt
-     * @param occ
-     * @param cellList 
+     * Function to determine influenced of cells
+     * @param bt Influenced blocktype
+     * @param occ Cell type
+     * @param cellList List of cells to check
      */
     public void determineFullInfluenceV2(BlockType bt, BlockType occ, LinkedList<Cell> cellList){
 //        influenced = new LinkedList<>();
@@ -311,10 +315,10 @@ public class Board {
         }
     }
     /**
-     * 
-     * @param cell
-     * @param bt
-     * @param occ 
+     * Determines blocks of influenced cells
+     * @param cell Cell to be checked
+     * @param bt Influence type to check
+     * @param occ Cell type to check
      */
     private void determineNeighbours(Cell cell, BlockType bt, BlockType occ){
         Cell superCell = new Cell(cell.color);
@@ -586,10 +590,10 @@ public class Board {
     }
     
     /**
-     * 
-     * @param bt
-     * @param occ
-     * @param cellList 
+     * Determines blocks of influenced cells
+     * @param cell Cell to be checked
+     * @param bt Influence type to check
+     * @param occ Cell type to check
      */
     private void determineFullInfluence(BlockType bt, BlockType occ, LinkedList<Cell> cellList) {
         LinkedList<Cell> temp = new LinkedList<>();
@@ -833,6 +837,10 @@ public class Board {
         }        
     }
     
+    /**
+     * Clears the board of bt blocks
+     * @param bt Blocktype to be clears
+     */
     private void clear(BlockType bt){
         
         for (int i = 0; i < boardSize; ++i){
@@ -843,7 +851,10 @@ public class Board {
             }
         }
     }
-
+    /**
+     * Clears the board of bt blocks
+     * @param bt Blocktype to be clears
+     */
     private void clearInfluencedBlocks(BlockType bt) {
         for (int i = 0; i < influenced.size(); ++i){
             if (bt == BlockType.BLUE_INFLUENCED){
@@ -872,7 +883,13 @@ public class Board {
             }
         }
     }
-
+    /**
+     * Determines cell closest to block
+     * @param i From this x
+     * @param j From this y
+     * @param local List of cells
+     * @return Object Cell closest to block at i, j
+     */
     private Cell getClosest(int i, int j, LinkedList<Cell> local) {
         Cell returnThis = local.get(0);
         int minx = local.get(0).positionX - i;

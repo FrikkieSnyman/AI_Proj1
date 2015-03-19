@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 13028741
  */
 package ai.cellwars;
 
@@ -11,8 +10,8 @@ import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author frikkie
+ * Class used for representing the board graphically
+ * @author Frikkie and Andre
  */
 public class BoardUI extends javax.swing.JFrame implements ActionListener{
     Integer n;
@@ -37,7 +36,9 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
     }
     
     /**
-     * Creates new form BoardUI
+     * Constructor for board UI
+     * @param n Size of board
+     * @param game Reference to game
      */
     public BoardUI(Integer n, Game game) {
         initComponents();
@@ -57,15 +58,15 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
 //        }
     }
     /**
-     * 
-     * @return 
+     * Function to get the panel on which board is drawn
+     * @return javax.swing.JPanel
      */
     public javax.swing.JPanel getPanel(){
         return this.gamePanel;
     }
     /**
-     * 
-     * @param gameBoard 
+     * Set the board
+     * @param gameBoard Set board to this 
      */
     public void setBoard(Board gameBoard) {
         this.gameBoard = gameBoard;
@@ -114,6 +115,7 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Main function
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -148,9 +150,9 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         });
     }
     /**
-     * 
-     * @param boardSize
-     * @return 
+     * Create buttons to be displayed
+     * @param boardSize Size of matrix
+     * @return javax.swing.JButton[][] of created buttons
      */
     public javax.swing.JButton[][] createBTNS(Integer boardSize) {
         this.boardSize = boardSize;
@@ -169,8 +171,8 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         return btns;
     }
     /**
-     * 
-     * @param e 
+     * EventListener
+     * @param e Event
      */
     public void actionPerformed(java.awt.event.ActionEvent e) {
         setCurrent(e);
@@ -190,8 +192,8 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         }
     }
     /**
-     * 
-     * @param e 
+     * Set active button
+     * @param e Event
      */
     public void setCurrent(java.awt.event.ActionEvent e) {
         for (int x = 0; x < boardSize; ++x) {
@@ -206,7 +208,7 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         }
     }
     /**
-     * 
+     * Set button marked as selected
      */
     public void setSelected() {
         if (game.currentPlayer == game.bluePlayer) {
@@ -227,7 +229,14 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
             }
         }
     }
-    
+    /**
+     * Function to move cell
+     * @param startY From this Y
+     * @param startX From this X
+     * @param stopY To this Y
+     * @param stopX To this X
+     * @return boolean true if the move made is valid, else false
+     */
     public boolean moveCell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
         if (!validMove(startY, startX, stopY, stopX)) {
             return false;
@@ -309,7 +318,14 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         
         return true;
     }
-    
+    /**
+     * Function to determine if a suggested move is valid
+     * @param startY Move from this Y
+     * @param startX Move from this X
+     * @param stopY Move to this Y
+     * @param stopX Move to this X
+     * @return boolean true if move is valid, else false
+     */
     public boolean validMove(Integer startY, Integer startX, Integer stopY, Integer stopX) {
         if (startX == stopX && startY == stopY) {
             return false;
@@ -352,7 +368,14 @@ public class BoardUI extends javax.swing.JFrame implements ActionListener{
         
         return true;
     }
-    
+    /**
+     * Function to move cells of AI
+     * @param startY From this Y
+     * @param startX From this X
+     * @param stopY To this Y
+     * @param stopX To this X
+     * @return boolean true if move could be made, else false
+     */
     public boolean moveAICell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
         if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
             game.board.blockType[stopX][stopY] = BlockType.BLUE_OCCUPIED;

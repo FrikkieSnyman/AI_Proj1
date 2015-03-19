@@ -1,13 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 13028741
  */
 package ai.cellwars;
 
 /**
- *
- * @author frikkie
+ * Enumeration to be used to determine blocktypes
+ * @author Frikkie and Andre
  */
 public enum BlockType {
     EMPTY, RED_OCCUPIED, RED_INFLUENCED, BLUE_OCCUPIED, BLUE_INFLUENCED

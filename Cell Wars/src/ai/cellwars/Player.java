@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 13028741
  */
 package ai.cellwars;
 
@@ -9,11 +8,9 @@ import java.util.LinkedList;
 import java.util.Random;
 
 /**
- *
- * @author frikkie
+ * Class to represent each participant
+ * @author Frikkie and Andre
  */
-
-// TODO implement strategy to determine which algorithm to use for movement
 public class Player extends Thread{
     Integer cells;
     String color;
@@ -21,35 +18,43 @@ public class Player extends Thread{
     
     /**
      * Constructor creates player and generates the player's cells
-     * @param cells
-     * @param color
-     * @param toX
-     * @param toY 
+     * @param cells How many cells
+     * @param color Cell colors 
+     * @param fromX Generate cells from this X
+     * @param fromY Generate cells from this y
+     * @param toX Generate cells to this X
+     * @param toY Generate cells to this y
      */
     public Player(Integer cells, String color,int fromX, int fromY, int toX, int toY){
         this.cells = cells;
         this.color = color;
         generateCells(fromX, fromY, toX, toY);
     }
-    
+    /**
+     * Clone the cells
+     * @return LinkedList of old cells
+     */
     public LinkedList<Cell> save() {
         return (LinkedList<Cell>) cellList.clone();
     }
-    
+    /**
+     * Set cells to state
+     * @param state Set cells to this list
+     */
     public void load(LinkedList<Cell> state) {
         cellList = state;
     }
     
     /**
      * Get the cellList of the player
-     * @return 
+     * @return LinkedList of cells
      */
     public LinkedList<Cell> getCellList(){
         return this.cellList;
     }
     /**
-     * 
-     * @param cellList 
+     * Set cell list of player to this
+     * @param cellList Set to this
      */
     public void setCellList(LinkedList<Cell> cellList){
         this.cellList = cellList;
@@ -57,8 +62,10 @@ public class Player extends Thread{
     
     /**
      * This function generates cells and places them in the cellList at random within range
-     * @param toX
-     * @param toY 
+     * @param fromX From this X
+     * @param fromY From this y
+     * @param toX To this x
+     * @param toY To this y
      */
     private void generateCells(int fromX, int fromY, int toX, int toY){
         Integer randX, randY;
@@ -81,9 +88,9 @@ public class Player extends Thread{
     }
     /**
      * Generates a random integer between min and max
-     * @param min
-     * @param max
-     * @return 
+     * @param min Min inclusive
+     * @param max Max exclusive
+     * @return int random generated integer
      */
     protected int randomInteger(int min, int max){
         Random rand = new Random();

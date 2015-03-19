@@ -1,15 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 13028741
  */
 package ai.cellwars;
 
 import javax.swing.ButtonModel;
 
 /**
- *
- * @author frikkie
+ * Class for menu UI
+ * @author Frikkie and Andre
  */
 public class UI extends javax.swing.JFrame {
 
@@ -229,8 +228,8 @@ public class UI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbPvAIActionPerformed
     /**
-     * 
-     * @param evt 
+     * Create game
+     * @param evt Event
      */
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
         // TODO add your handling code here:
@@ -247,6 +246,7 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPlayActionPerformed
 
     /**
+     * Main function
      * @param args the command line arguments
      */
     public static void main(String args[]) {

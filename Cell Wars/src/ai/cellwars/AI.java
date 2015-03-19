@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 13028741
  */
 package ai.cellwars;
 
@@ -11,8 +10,9 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- *
- * @author frikkie
+ * AI class that extends Player class which is used when an
+ * AI is selected as a player
+* @author Frikkie and Andre
  */
 public class AI extends Player{
     Game game = null;
@@ -23,10 +23,13 @@ public class AI extends Player{
     
     /**
      * Constructor creates player and generates the player's cells
-     * @param cells
-     * @param color
-     * @param toX
-     * @param toY 
+     * @param cells Number of cells of player
+     * @param color String in lowercase of player color. Either "blue" or "red"
+     * @param fromX Used to generate cells in random from this X
+     * @param fromY Used to generate cells in random from this Y
+     * @param toX Used to generate cells in random to this X
+     * @param toY Used to generate cells in random to this Y
+     * @param game Reference to the game being played
      */
     public AI(Integer cells, String color,int fromX, int fromY, int toX, int toY, Game game){
         super(cells, color, fromX, fromY, toX, toY);
@@ -35,7 +38,10 @@ public class AI extends Player{
         
         System.out.println("Creating the terminator");
     }
-    
+    /**
+     * Function to run thread
+     */
+    @Override
     public void run() {
         while (!game.gameOver) {
             if (game.currentPlayer != this) {
@@ -48,7 +54,9 @@ public class AI extends Player{
         
         System.out.println("Game over");
     }
-    
+    /**
+     * Generates the move the AI will make
+     */
     public void makeMove() {
 //        System.out.println("I can now make a move");
         
@@ -77,7 +85,10 @@ public class AI extends Player{
             }
         }
     }
-    
+    /**
+     * Helper function to generate moves
+     * @param c Reference to cell to determine valid moves
+     */
     public void generateMoves(Cell c) {
         Move tempMove = null;
         
@@ -109,7 +120,14 @@ public class AI extends Player{
             moveList.add(tempMove);
         }
     }
-    
+    /**
+     * Determines whether suggested move is valid
+     * @param startY Move from this Y
+     * @param startX Move from this X
+     * @param stopY Move to this Y
+     * @param stopX Move to this X
+     * @return Returns true if move is valid, false otherwise
+     */
     public boolean validMove(Integer startY, Integer startX, Integer stopY, Integer stopX) {
         if (startX == stopX && startY == stopY) {
             return false;
@@ -152,7 +170,11 @@ public class AI extends Player{
         
         return true;
     }
-    
+    /**
+     * Generates a heuristic for the suggested move
+     * @param move Move that is suggested
+     * @return Returns an Integer with the value of the heuristic
+     */
     public Integer generateH(Move move) {
         Integer h = 0;
         
@@ -176,7 +198,13 @@ public class AI extends Player{
         return h;
 //        return 1;
     }
-    
+    /**
+     * Function to move the cell
+     * @param startY Move from this Y
+     * @param startX Move from this X
+     * @param stopY Move to this Y
+     * @param stopX Move to this X
+     */
     public void moveCell(Integer startY, Integer startX, Integer stopY, Integer stopX) {
          if (game.board.blockType[startX][startY].equals(BlockType.BLUE_OCCUPIED)) {
             game.board.blockType[stopX][stopY] = BlockType.BLUE_OCCUPIED;
@@ -212,7 +240,10 @@ public class AI extends Player{
         
         game.determineInfluence();
     }
-    
+    /**
+     * Function to retrieve the best move based on heuristics
+     * @return Returns a Move object
+     */
     public Move getBestMove() {
         boolean changed = true;
         
@@ -239,7 +270,10 @@ public class AI extends Player{
         
         return best;
     }
-    
+    /**
+     * Function to select random move if all heuristics are the same to avoid stagnation
+     * @return Move object
+     */
     public Move randomMove() {
         return moveList.get(randomInteger(0, moveList.size() - 1));
     }

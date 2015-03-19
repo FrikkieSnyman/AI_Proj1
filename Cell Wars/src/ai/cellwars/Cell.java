@@ -1,15 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 13028741
  */
 package ai.cellwars;
 
 import java.util.LinkedList;
 
 /**
- *
- * @author frikkie
+ *  Class to resemble cells
+ * @author Frikkie and Andre
  */
 public class Cell {
     Integer positionX;
@@ -19,17 +18,18 @@ public class Cell {
     LinkedList<Position> infList = null;
     LinkedList<Cell> neighbours = new LinkedList<>();
     /**
-     * 
+     * Constructor of cell
+     * @param color Color of cell in lowercase
      */
     public Cell(String color){
         this.infList = new LinkedList<>();
         this.color = color;
     }
     /**
-     * 
-     * @param positionX
-     * @param positionY
-     * @param color 
+     * Constructor of cell
+     * @param positionX Cell position at X
+     * @param positionY Cell position at Y
+     * @param color Cell color in lowercase
      */
     public Cell(Integer positionX, Integer positionY, String color){
         this.positionX = positionX;
@@ -38,51 +38,51 @@ public class Cell {
         this.infList = new LinkedList<>();
     }
     /**
-     * 
-     * @param positionX 
+     * Set cell's x position
+     * @param positionX To this X
      */
     public void setPositionX (Integer positionX){
         this.positionX = positionX;
     }
     /**
-     * 
-     * @param positionY 
+     * Set cell's Y position
+     * @param positionY To this Y
      */
     public void setPositionY (Integer positionY){
         this.positionY = positionY;
     }
     /**
-     * 
-     * @param color 
+     * Set cell's color
+     * @param color To this color
      */
     public void setColor (String color){
         this.color = color;
     }
     /**
-     * 
-     * @return 
+     * Retrieves cell position
+     * @return Integer[] with x at 0, y at 1
      */
     public Integer[] getPosition(){
         Integer[] returnThis = {positionX, positionY};
         return returnThis;
     }
     /**
-     * 
-     * @return 
+     * Retrieve cell color
+     * @return String of cell's color
      */
     public String getColor(){
         return color;
     }
     /**
-     * 
-     * @return 
+     * Retrieve the distance that cell can move
+     * @return Integer
      */
     public Integer getMoveCount(){
         return moveCount;
     }
     /**
-     * 
-     * @param moveCount 
+     * Set the distance that cell can move
+     * @param moveCount To this move count
      */
     public void setMoveCout(Integer moveCount){
         this.moveCount = moveCount;

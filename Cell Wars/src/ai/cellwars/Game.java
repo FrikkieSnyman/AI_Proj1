@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Andre Calitz 13020006
+ * Frikkie Snyman 130288741
  */
 package ai.cellwars;
 
@@ -13,8 +12,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- *
- * @author frikkie
+ * Game class for game logic
+ * @author Frikkie and Andre
  */
 public class Game {
     Boolean boardCreated = false;
@@ -33,10 +32,10 @@ public class Game {
     Boolean gameOver = false;
     
     /**
-     * 
-     * @param boardSize
-     * @param cellsPerPlayer
-     * @param players 
+     * Game constructor
+     * @param boardSize Size of the square board
+     * @param cellsPerPlayer Number of cells per player
+     * @param players Selection as made on GUI
      */
     public Game(Integer boardSize, Integer cellsPerPlayer, Integer players){
         this.boardSize = boardSize;
@@ -87,7 +86,7 @@ public class Game {
         redPlayer.start();
     }
     /**
-     * 
+     * Draw the cells and influenced blocks on board
      */
     public void drawCells(){
         //Create button grid
@@ -167,7 +166,9 @@ public class Game {
         //Redraw board
         gamePanel.validate();
     }
-    
+    /**
+     * Initialises GUI
+     */
     public void initGUI() {
         //Create buttons for board
         btns = board.boardUI.createBTNS(boardSize);
@@ -186,7 +187,9 @@ public class Game {
         //Show GUI
         board.boardUI.setVisible(true);
     }
-    
+    /**
+     * Places cells on board
+     */
     public void placeCells() {
         //Set cells to correct color
         for (int i = 0; i < allCells.size(); ++i) {
@@ -200,7 +203,9 @@ public class Game {
             }
         }
     }
-    
+    /**
+     * Determines the influenced blocks
+     */
     public void determineInfluence() {
         //Determine cell influence based on the last move
         if (currentPlayer == redPlayer) {
@@ -212,7 +217,9 @@ public class Game {
             
         }
     }
-    
+    /**
+     * Function to draw cells on board
+     */
     public void drawCellsV2() {
         for (int x = 0; x < boardSize; ++x) {
             for (int y = 0; y < boardSize; ++y) {
@@ -241,7 +248,9 @@ public class Game {
         //Redraw board
         gamePanel.validate();
     }
-    
+    /**
+     * Function to draw the board
+     */
     public void drawBoard() {
 //        placeCells();
         
@@ -249,7 +258,9 @@ public class Game {
         
         drawCellsV2();
     }
-    
+    /**
+     * Update board after move
+     */
     public void redrawBoard() {
         /**
          * 
@@ -261,7 +272,9 @@ public class Game {
         drawBoard();
         drawBoard();
     }
-    
+    /**
+     * Swap players after move
+     */
     public void swapPlayers() {
         if (currentPlayer == redPlayer) {
             currentPlayer = bluePlayer;
