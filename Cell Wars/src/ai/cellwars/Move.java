@@ -14,6 +14,7 @@ public class Move {
     Integer stopX;
     Integer startY;
     Integer stopY;
+    Integer hValue;
     
     public Move(Integer startX, Integer stopX, Integer startY, Integer stopY) {
         this.startX = startX;
@@ -36,5 +37,13 @@ public class Move {
     
     public Integer getStopY() {
         return stopY;
+    }
+    
+    public void setHValue(Integer h) {
+        hValue = h;
+    }
+    
+    public Integer getHValue() {
+        return hValue;
     }
 }

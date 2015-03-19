@@ -15,6 +15,7 @@ import java.util.Random;
  */
 public class AI extends Player{
     Game game = null;
+    BlockType[][] saveState = null;
     LinkedList<Move> moveList = null;
     
     /**
@@ -56,20 +57,19 @@ public class AI extends Player{
         
 //        System.out.println(moveList.size());
         
-        Integer moveNum = randomInteger(0, moveList.size());
+//        Integer moveNum = randomInteger(0, moveList.size());
         
-        Move currentMove = moveList.get(moveNum);
+        
+        
+        Move currentMove = getBestMove();
         
         game.board.boardUI.moveAICell(currentMove.getStartY(), currentMove.getStartX(), currentMove.getStopY(), currentMove.getStopX());
         
         try {
-            Thread.sleep(200);
+            Thread.sleep(0);
         } catch (Exception e) {
             
         }
-        
-        
-//        game.swapPlayers();
     }
     
     public void generateMoves(Cell c) {
@@ -78,24 +78,28 @@ public class AI extends Player{
         tempMove = new Move(c.positionX, c.positionX + 1, c.positionY, c.positionY);
         
         if (validMove(tempMove.getStartY(), tempMove.getStartX(), tempMove.getStopY(), tempMove.getStopX())) {
+            tempMove.setHValue(generateH(tempMove));
             moveList.add(tempMove);
         }
         
         tempMove = new Move(c.positionX, c.positionX - 1, c.positionY, c.positionY);
         
         if (validMove(tempMove.getStartY(), tempMove.getStartX(), tempMove.getStopY(), tempMove.getStopX())) {
+            tempMove.setHValue(generateH(tempMove));
             moveList.add(tempMove);
         }
         
         tempMove = new Move(c.positionX, c.positionX, c.positionY, c.positionY + 1);
         
         if (validMove(tempMove.getStartY(), tempMove.getStartX(), tempMove.getStopY(), tempMove.getStopX())) {
+            tempMove.setHValue(generateH(tempMove));
             moveList.add(tempMove);
         }
         
         tempMove = new Move(c.positionX, c.positionX, c.positionY, c.positionY - 1);
         
         if (validMove(tempMove.getStartY(), tempMove.getStartX(), tempMove.getStopY(), tempMove.getStopX())) {
+            tempMove.setHValue(generateH(tempMove));
             moveList.add(tempMove);
         }
     }
@@ -113,44 +117,78 @@ public class AI extends Player{
             return false;
         }
         
-//        Integer moveCount = 0;
-//        
-//        ListIterator<Cell> iterator = game.allCells.listIterator();
-//        Cell current = null;
-//        
-//        while (iterator.hasNext()) {
-//            current = iterator.next();
-//            
-//            if (current.positionX == stopX && current.positionY == stopY) {
-//                return false;
-//            } else if (current.positionX == startX && current.positionY == startY) {
-//                moveCount = current.moveCount;
-//            }
-//        }
-//        
-////        System.out.println(moveCount);
-//        
-//        if (startX == stopX) {
-//            if (Math.abs(startY - stopY) > moveCount) {
-//                return false;
-//            }
-//        } else {
-//            if (Math.abs(startX - stopX) > moveCount) {
-//                return false;
-//            }
-//        }
+        Integer moveCount = 0;
+        
+        ListIterator<Cell> iterator = game.allCells.listIterator();
+        Cell current = null;
+        
+        while (iterator.hasNext()) {
+            current = iterator.next();
+            
+            if (current.positionX == stopX && current.positionY == stopY) {
+                return false;
+            } else if (current.positionX == startX && current.positionY == startY) {
+                moveCount = current.moveCount;
+            }
+        }
+        
+//        System.out.println(moveCount);
+        
+        if (startX == stopX) {
+            if (Math.abs(startY - stopY) > moveCount) {
+                return false;
+            }
+        } else {
+            if (Math.abs(startX - stopX) > moveCount) {
+                return false;
+            }
+        }
         
         return true;
     }
-//    /**
-//     * Generates a random integer between min and max
-//     * @param min
-//     * @param max
-//     * @return 
-//     */
-//    private int randomInteger(int min, int max){
-//        Random rand = new Random();
-//        int returnThis = rand.nextInt((max - min)) +min;
-//        return returnThis;
-//    }
+    
+    public Integer generateH(Move move) {
+        Integer h = 0;
+        
+        saveState = game.board.cloneBoard();
+        
+        game.board.boardUI.moveAICell(move.getStartY(), move.getStartX(), move.getStopY(), move.getStopX());
+        
+        if (game.currentPlayer == game.redPlayer) {
+            h = game.redPlayer.cellList.size() - game.bluePlayer.cellList.size();
+        } else {
+            h = game.bluePlayer.cellList.size() - game.redPlayer.cellList.size();
+        }
+        
+        game.board.resetBoard(saveState);
+        
+        return h;
+    }
+    
+    public Move getBestMove() {
+        boolean changed = true;
+        
+        ListIterator<Move> iterator = moveList.listIterator();
+        Move current = null;
+        
+        Move best = iterator.next();
+        
+        while (iterator.hasNext()) {
+            current = iterator.next();
+            
+            if (current.getHValue() != best.getHValue()) {
+                changed = false;
+            }
+            
+            if (current.getHValue() > best.getHValue()) {
+                best = current;
+            }
+        }
+        
+        if (changed) {
+            best = moveList.get(randomInteger(0, moveList.size() - 1));
+        }
+        
+        return best;
+    }
 }
